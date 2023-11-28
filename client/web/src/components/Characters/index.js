@@ -104,72 +104,71 @@ const Characters = ({
             </Grid>
           )
       )}
+      {/*<Grid item xs={isMobile ? 12 : 6}>*/}
+      {/*  <Button*/}
+      {/*    variant='outlined'*/}
+      {/*    onClick={handleOpenDialog}*/}
+      {/*    sx={{*/}
+      {/*      width: '100%',*/}
+      {/*      backgroundColor: '#1B2134',*/}
+      {/*      borderColor: '#1B2134',*/}
+      {/*      '&:hover': {*/}
+      {/*        backgroundColor: '#35394A',*/}
+      {/*        borderColor: '#617CC2',*/}
+      {/*      },*/}
+      {/*      display: 'flex',*/}
+      {/*      justifyContent: 'left',*/}
+      {/*      textTransform: 'none',*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <Avatar sx={{ backgroundColor: 'transparent' }}>*/}
+      {/*      <GroupsIcon sx={{ color: 'white' }} />*/}
+      {/*    </Avatar>*/}
 
-      <Grid item xs={isMobile ? 12 : 6}>
-        <Button
-          variant='outlined'
-          onClick={handleOpenDialog}
-          sx={{
-            width: '100%',
-            backgroundColor: '#1B2134',
-            borderColor: '#1B2134',
-            '&:hover': {
-              backgroundColor: '#35394A',
-              borderColor: '#617CC2',
-            },
-            display: 'flex',
-            justifyContent: 'left',
-            textTransform: 'none',
-          }}
-        >
-          <Avatar sx={{ backgroundColor: 'transparent' }}>
-            <GroupsIcon sx={{ color: 'white' }} />
-          </Avatar>
+      {/*    <Typography*/}
+      {/*      variant='body1'*/}
+      {/*      sx={{*/}
+      {/*        color: 'white',*/}
+      {/*        fontFamily: 'Prompt, sans-serif',*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      Select from community*/}
+      {/*    </Typography>*/}
+      {/*  </Button>*/}
+      {/*</Grid>*/}
 
-          <Typography
-            variant='body1'
-            sx={{
-              color: 'white',
-              fontFamily: 'Prompt, sans-serif',
-            }}
-          >
-            Select from community
-          </Typography>
-        </Button>
-      </Grid>
+      {/*<Grid item xs={isMobile ? 12 : 6}>*/}
+      {/*  <Button*/}
+      {/*    variant='outlined'*/}
+      {/*    onClick={handleOpenLibraryDialog}*/}
+      {/*    sx={{*/}
+      {/*      width: '100%',*/}
+      {/*      backgroundColor: '#1B2134',*/}
+      {/*      borderColor: '#1B2134',*/}
+      {/*      '&:hover': {*/}
+      {/*        backgroundColor: '#35394A',*/}
+      {/*        borderColor: '#617CC2',*/}
+      {/*      },*/}
+      {/*      display: 'flex',*/}
+      {/*      justifyContent: 'left',*/}
+      {/*      textTransform: 'none',*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <Avatar sx={{ backgroundColor: 'transparent' }}>*/}
+      {/*      <GroupsIcon sx={{ color: 'white' }} />*/}
+      {/*    </Avatar>*/}
 
-      <Grid item xs={isMobile ? 12 : 6}>
-        <Button
-          variant='outlined'
-          onClick={handleOpenLibraryDialog}
-          sx={{
-            width: '100%',
-            backgroundColor: '#1B2134',
-            borderColor: '#1B2134',
-            '&:hover': {
-              backgroundColor: '#35394A',
-              borderColor: '#617CC2',
-            },
-            display: 'flex',
-            justifyContent: 'left',
-            textTransform: 'none',
-          }}
-        >
-          <Avatar sx={{ backgroundColor: 'transparent' }}>
-            <GroupsIcon sx={{ color: 'white' }} />
-          </Avatar>
-
-          <Typography
-            variant='body1'
-            sx={{
-              color: 'white',
-              fontFamily: 'Prompt, sans-serif',
-            }}
-          >
-            Select from your library
-          </Typography>
-        </Button>
-      </Grid>
+      {/*    <Typography*/}
+      {/*      variant='body1'*/}
+      {/*      sx={{*/}
+      {/*        color: 'white',*/}
+      {/*        fontFamily: 'Prompt, sans-serif',*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      Select from your library*/}
+      {/*    </Typography>*/}
+      {/*  </Button>*/}
+      {/*</Grid>*/}
 
       <Dialog
         open={openDialog}

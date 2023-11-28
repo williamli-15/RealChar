@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, RedirectResponse
 
+import openai
+
 from realtime_ai_character.audio.speech_to_text import get_speech_to_text
 from realtime_ai_character.audio.text_to_speech import get_text_to_speech
 from realtime_ai_character.character_catalog.catalog_manager import CatalogManager
@@ -16,6 +18,9 @@ from realtime_ai_character.utils import ConnectionManager
 from realtime_ai_character.websocket_routes import router as websocket_router
 
 load_dotenv()
+
+openai.proxy = os.getenv("OPENAI_PROXY")
+
 
 app = FastAPI()
 

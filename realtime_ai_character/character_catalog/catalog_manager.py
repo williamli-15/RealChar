@@ -62,9 +62,11 @@ class CatalogManager(Singleton):
 
     def load_character(self, directory):
         with ExitStack() as stack:
-            f_yaml = stack.enter_context(open(directory / 'config.yaml'))
+            f_yaml = stack.enter_context(open(directory / 'config.yaml', encoding='utf-8'))
             yaml_content = yaml.safe_load(f_yaml)
-
+        enabled = yaml_content.get('enabled', False)
+        if not enabled:
+            return
         character_id = yaml_content['character_id']
         character_name = yaml_content['character_name']
         voice_id = str(yaml_content['voice_id'])
@@ -79,7 +81,9 @@ class CatalogManager(Singleton):
             source='default',
             location='repo',
             visibility='public',
-            tts=yaml_content["text_to_speech_use"]
+            tts=yaml_content["text_to_speech_use"],
+            video_template=yaml_content.get("video_template"),
+            greeting_video=yaml_content.get("greeting_video")
         )
 
         if "avatar_id" in yaml_content:
@@ -104,7 +108,7 @@ class CatalogManager(Singleton):
 
         for directory in directories:
             character_name = self.load_character(directory)
-            if overwrite:
+            if character_name and overwrite:
                 self.load_data(character_name, directory / 'data')
                 logger.info('Loaded data for character: ' + character_name)
         logger.info(
@@ -118,7 +122,7 @@ class CatalogManager(Singleton):
                        and d.name not in excluded_dirs]
         for directory in directories:
             with ExitStack() as stack:
-                f_yaml = stack.enter_context(open(directory / 'config.yaml'))
+                f_yaml = stack.enter_context(open(directory / 'config.yaml', encoding='utf-8'))
                 yaml_content = yaml.safe_load(f_yaml)
             character_id = yaml_content['character_id']
             character_name = yaml_content['character_name']

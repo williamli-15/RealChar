@@ -88,6 +88,8 @@ async def characters(user=Depends(get_current_user)):
         "avatar_id": character.avatar_id,
         "tts": character.tts,
         'is_author': character.author_id == uid,
+        'greeting_video': character.greeting_video,
+        'video_template': character.video_template,
     } for character in catalog.characters.values()
             if character.author_id == uid or character.visibility == 'public']
 

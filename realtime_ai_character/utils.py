@@ -26,6 +26,8 @@ class Character:
     visibility: str = ''
     tts: Optional[str] = ''
     data: Optional[dict] = None
+    video_template: Optional[str] = None
+    greeting_video: Optional[str] = None
 
 
 @dataclass

@@ -94,14 +94,14 @@ const Home = ({
             isPlaying={isPlaying}
             characterConfirmed={characterConfirmed}
           />
-          <Button
-            variant='contained'
-            color='primary'
-            onClick={handleCreateCharacter}
-            sx={{ marginBottom: '20px' }}
-          >
-            Create Your Character
-          </Button>
+          {/*<Button*/}
+          {/*  variant='contained'*/}
+          {/*  color='primary'*/}
+          {/*  onClick={handleCreateCharacter}*/}
+          {/*  sx={{ marginBottom: '20px' }}*/}
+          {/*>*/}
+          {/*  Create Your Character*/}
+          {/*</Button>*/}
 
           <Button
             variant='contained'
