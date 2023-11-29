@@ -6,6 +6,7 @@
   height: 25vh;
   border: none;
   resize: none;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .input-container {

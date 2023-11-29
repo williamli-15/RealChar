@@ -70,11 +70,11 @@ async def status():
 @router.get("/characters")
 async def characters(user=Depends(get_current_user)):
     def get_image_url(character):
-        gcs_path = 'https://storage.googleapis.com/assistly'
+        gcs_path = 'https://storage.googleapis.com/avatars_bucket'
         if character.data and 'avatar_filename' in character.data:
             return f'{gcs_path}/{character.data["avatar_filename"]}'
         else:
-            return f'{gcs_path}/static/realchar/{character.character_id}.jpg'
+            return f'{gcs_path}/{character.character_id}.jpg'
     uid = user['uid'] if user else None
     from realtime_ai_character.character_catalog.catalog_manager import CatalogManager
     catalog: CatalogManager = CatalogManager.get_instance()

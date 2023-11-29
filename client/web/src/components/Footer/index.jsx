@@ -12,7 +12,7 @@ import './style.css';
 const Footer = () => (
   <footer>
     <div className='rounded-social-buttons'>
-      <a
+      {/* <a
         className='social-button github'
         href='https://github.com/Shaunwei/RealChar'
         target='_blank'
@@ -35,12 +35,12 @@ const Footer = () => (
         rel='noreferrer'
       >
         <FaTwitter />
-      </a>
+      </a> */}
     </div>
     <p className='copyright'>
-      Copyright © 2023 RealChar. All rights reserved. Any AI character&apos;s
+      {/* Copyright © 2023 RealChar. All rights reserved. Any AI character&apos;s
       statements are fictional and don&apos;t represent actual beliefs or
-      opinions. Ver: {process.env.REACT_APP_BUILD_NUMBER}
+      opinions. Ver: {process.env.REACT_APP_BUILD_NUMBER} */}
     </p>
   </footer>
 );
