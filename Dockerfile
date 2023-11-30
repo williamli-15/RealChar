@@ -23,6 +23,7 @@ WORKDIR /realtime_ai_character
 # Install Python dependencies
 COPY requirements.txt /realtime_ai_character
 RUN pip install -r /realtime_ai_character/requirements.txt
+RUN pip install replicate
 
 # Copy the project files
 COPY ./ /realtime_ai_character
