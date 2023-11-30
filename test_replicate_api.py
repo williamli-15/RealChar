@@ -4,7 +4,7 @@ import os
 
 import replicate
 
-os.environ['REPLICATE_API_TOKEN'] = 'r8_YzurGb30hu9rlyumS0ISfI3u35itaOM0mbbaK'
+os.environ['REPLICATE_API_TOKEN'] = ''
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:4780'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:4780'
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'gcs.json'
