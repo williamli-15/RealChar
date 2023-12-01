@@ -52,7 +52,8 @@
 }
 /* these are the navbar , if you want to change color for the nav its ".nextui-navbar-container" */
 .nextui-navbar-container {
-  background: var(--ion-color-primary) !important;
+  box-shadow: none !important;
+  background: #FDF7EB !important;
 }
 
 .nextui-navbar-container {

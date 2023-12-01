@@ -106,18 +106,31 @@ const Home = ({
           <Button
             variant='contained'
             onClick={handleNextClick}
-            fullWidth
+            // fullWidth
             size='large'
             disabled={!selectedCharacter}
             sx={{
+              border: '1px solid black', // This line sets the border to black
               '&.Mui-disabled': {
-                backgroundColor: '#BEC5D9',
-                color: '#636A84',
+                backgroundColor: 'black',
+                color: 'white',
+              },
+              '&:hover': {
+                backgroundColor: 'white', // Keeps the button white on hover
+              },
+              '&:active': {
+                backgroundColor: 'black', // Changes the background color to black on click
+                color: 'white', // Changes the text color to white on click
               },
               textTransform: 'none',
+              width: '200px', // Adjust the width as needed
+              fontFamily: 'Courier, monospace', // Set the font to Courier
+              borderRadius: '10px', // Adjust the radius to make it more round
+              backgroundColor: 'white',
+              color: 'black',
             }}
           >
-            Next
+            NEXT
           </Button>
         </>
       )}

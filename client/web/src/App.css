@@ -6,8 +6,8 @@
 }
 
 .header {
-  color: #cccccc;
-  font-family: 'Prompt', Helvetica;
+  color: #000000;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
   font-weight: 200;
 }
