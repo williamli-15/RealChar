@@ -48,8 +48,9 @@ class ElevenLabs(Singleton, TextToSpeech):
             logger.info("voice_id is not found in .env file, using ElevenLabs default voice")
             voice_id = "21m00Tcm4TlvDq8ikWAM"
         headers = config.headers
-        if language != 'en-US':
-            config.data["model_id"] = 'eleven_multilingual_v1'
+        if True: #language != 'en-US':
+            # config.data["model_id"] = 'eleven_multilingual_v1'
+            config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,
@@ -76,7 +77,7 @@ class ElevenLabs(Singleton, TextToSpeech):
             logger.info("voice_id is not found in .env file, using ElevenLabs default voice")
             voice_id = "21m00Tcm4TlvDq8ikWAM"
         headers = config.headers
-        if language != 'en-US':
+        if True: #language != 'en-US':
             config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,

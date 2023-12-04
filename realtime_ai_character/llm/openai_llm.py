@@ -92,7 +92,7 @@ class OpenaiLlm(LLM):
 
     def _generate_context(self, query, character: Character) -> str:
         docs = self.db.similarity_search(query)
-        docs = [d for d in docs if d.metadata['character_name'] == character.name]
+        #docs = [d for d in docs if d.metadata['character_name'] == character.name]
         logger.info(f'Found {len(docs)} documents')
 
         context = '\n'.join([d.page_content for d in docs])

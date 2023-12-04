@@ -1,3 +1,7 @@
+# Local
+old.env
+gcs.json
+
 .vscode/
 
 # Byte-compiled / optimized / DLL files
