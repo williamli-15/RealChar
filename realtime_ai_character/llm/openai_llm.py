@@ -63,6 +63,7 @@ class OpenaiLlm(LLM):
                     *args, **kwargs) -> str:
         # 1. Generate context
         context = self._generate_context(user_input, character)
+        logger.info(f"Ignoring generated context: {context}")
         memory_context = self._generate_memory_context(user_id='', query=user_input)
         if memory_context:
             context += ("Information regarding this user based on previous chat: "
@@ -80,6 +81,7 @@ class OpenaiLlm(LLM):
                 context += response
 
         # 2. Add user input to history
+        context = ""
         history.append(HumanMessage(content=user_input_template.format(
             context=context, query=user_input)))
 
