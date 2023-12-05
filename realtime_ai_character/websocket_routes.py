@@ -217,8 +217,9 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
         else:
             text_to_speech = default_text_to_speech
 
-        video_template = 'https://storage.googleapis.com/avatars_bucket/avatar_still.mp4'
-        greeting_video = 'https://storage.googleapis.com/avatars_bucket/avatar_talking.mp4'
+        video_template = character.video_template
+        greeting_video = character.greeting_video
+        face_template = character.face_template
 
         conversation_history.system_prompt = character.llm_system_prompt
         user_input_template = character.llm_user_prompt
@@ -242,7 +243,8 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 first_sentence=True,
                 language=language,
                 video_template=video_template,
-                greeting_video=greeting_video
+                greeting_video=greeting_video,
+                face_template=face_template,
             )
         )
         # Send end of the greeting so the client knows when to start listening
@@ -301,7 +303,8 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                                 text_to_speech, websocket, tts_event,
                                 character.voice_id,
                                 video_template=video_template,
-                                greeting_video=greeting_video
+                                greeting_video=greeting_video,
+                                face_template=face_template,
                             )
                         )
                     )
@@ -346,7 +349,8 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                     audioCallback=AsyncCallbackAudioHandler(
                         text_to_speech, websocket, tts_event, character.voice_id,
                         video_template=video_template,
-                        greeting_video=greeting_video
+                        greeting_video=greeting_video,
+                        face_template=face_template
                     ),
                     character=character,
                     useSearch=use_search,
@@ -478,7 +482,8 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                                   text_to_speech, websocket, tts_event,
                                   character.voice_id,
                                   video_template=video_template,
-                                  greeting_video=greeting_video
+                                  greeting_video=greeting_video,
+                                  face_template=face_template
                               ),
                               character=character,
                               useSearch=use_search,

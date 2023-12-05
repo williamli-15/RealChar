@@ -68,6 +68,14 @@
   background-color: #28c235;
 }
 
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
+
 .icon-red:hover {
   background-color: #ff4242;
   transform: scale(1.1);
@@ -80,6 +88,16 @@
 
 .icon-green:hover {
   background-color: #28c235;
+  transform: scale(1.1);
+}
+
+.icon-black:hover {
+  background-color: black;
+  transform: scale(1.1);
+}
+
+.icon-white:hover {
+  background-color: white;
   transform: scale(1.1);
 }
 

@@ -83,7 +83,8 @@ class CatalogManager(Singleton):
             visibility='public',
             tts=yaml_content["text_to_speech_use"],
             video_template=yaml_content.get("video_template"),
-            greeting_video=yaml_content.get("greeting_video")
+            greeting_video=yaml_content.get("greeting_video"),
+            face_template=yaml_content.get("face_template"),
         )
 
         if "avatar_id" in yaml_content:

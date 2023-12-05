@@ -13,7 +13,7 @@ import SignOut from '../Auth/SignOut';
 import { Navbar } from '@nextui-org/react';
 
 const Header = ({ user, isLoggedIn, setToken, handleDisconnect }) => (
-  <Navbar id='navbar' variant='floating'>
+  <Navbar id='navbar'>
     <a href='/'>
       <Navbar.Brand
         css={{

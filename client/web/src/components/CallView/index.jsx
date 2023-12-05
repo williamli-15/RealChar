@@ -69,23 +69,24 @@ const CallView = ({
           <span></span>
           <span></span>
         </div>
+        {isRecording && <p className='recording-status'>Start chatting</p>}
         {isRecording ? (
           <IconButton
             Icon={MdCallEnd}
-            className='icon-red'
-            bgcolor='red'
+            className='icon-black'
+            bgcolor='black'
             onClick={handleStopCall}
           />
         ) : (
           <IconButton
             Icon={TbPhoneCall}
-            className='icon-green'
-            bgcolor='green'
+            className='icon-black'
+            bgcolor='black'
             onClick={handleContinueCall}
           />
         )}
       </div>
-      <div className='options-container'>
+      {/* <div className='options-container'>
         <IconButton
           Icon={TbPower}
           className='icon-red'
@@ -103,7 +104,7 @@ const CallView = ({
             window.open(`/shared?session_id=${sessionId}`, '_blank')
           }
         />
-      </div>
+      </div> */}
     </div>
   );
 };

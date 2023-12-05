@@ -199,11 +199,29 @@ const Conversation = ({
             ref={videoPlayer}
             className={`speech-video`}
             onPause={event => {
+              console.info('onPause: ', event);
               if (videoSource !== videoTemplate) {
                 videoPlayer.current.loop = true;
                 setVideoSource(videoTemplate);
                 setIsVideoPlaying(false);
               }
+            }}
+            onLoadedMetadata={event => {
+              console.info('onLoadedMetadata: ', event);
+              const beforeIsRecording = isRecording;
+              handleStopCall();
+              const duration = event.target.duration;
+              setTimeout(() => {
+                if (beforeIsRecording) {
+                  handleContinueCall();
+                }
+              }, duration * 1000);
+            }}
+            onLoadStart={event => {
+              console.info('onLoadStart: ', event);
+            }}
+            onLoadedData={event => {
+              console.info('onLoadedData: ', event);
             }}
           >
             <source src={videoSource} type='video/mp4'></source>
