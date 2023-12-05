@@ -15,6 +15,7 @@ from realtime_ai_character.logger import get_logger
 from realtime_ai_character.utils import Character, timed
 
 logger = get_logger(__name__)
+logger.setLevel('DEBUG')
 
 
 class OpenaiLlm(LLM):
@@ -63,7 +64,7 @@ class OpenaiLlm(LLM):
                     *args, **kwargs) -> str:
         # 1. Generate context
         context = self._generate_context(user_input, character)
-        logger.info(f"Ignoring generated context: {context}")
+        #logger.debug(f"Ignoring generated context: {context}")
         memory_context = self._generate_memory_context(user_id='', query=user_input)
         if memory_context:
             context += ("Information regarding this user based on previous chat: "

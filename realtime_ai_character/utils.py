@@ -26,6 +26,7 @@ class Character:
     visibility: str = ''
     tts: Optional[str] = ''
     data: Optional[dict] = None
+    greeting_message: Optional[str] = ''
 
 
 @dataclass
