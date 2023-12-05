@@ -29,6 +29,7 @@ const useWebRTC = onTrack => {
           echoCancellation: true,
           noiseSuppression: true,
         },
+        video: false,
       });
       micStreamRef.current = stream;
       await stream.getTracks().forEach(function (track) {

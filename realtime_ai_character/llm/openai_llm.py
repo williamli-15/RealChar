@@ -80,6 +80,7 @@ class OpenaiLlm(LLM):
                 context += response
 
         # 2. Add user input to history
+        context = ""
         history.append(HumanMessage(content=user_input_template.format(
             context=context, query=user_input)))
 

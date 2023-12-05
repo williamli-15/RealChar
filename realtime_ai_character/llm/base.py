@@ -41,7 +41,7 @@ class AsyncCallbackTextHandler(AsyncCallbackHandler):
 
 class AsyncCallbackAudioHandler(AsyncCallbackHandler):
     def __init__(self, text_to_speech=None, websocket=None, tts_event=None, voice_id="",
-                 language="en-US", video_template=None, greeting_video=None, *args, **kwargs):
+                 language="en-US", video_template=None, greeting_video=None, face_template=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if text_to_speech is None:
             def text_to_speech(token): return print(
@@ -57,6 +57,7 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
         self.is_first_sentence = True
         self.video_template = video_template
         self.greeting_video = greeting_video
+        self.face_template = face_template
 
 
     async def on_chat_model_start(self, *args, **kwargs):
@@ -99,7 +100,8 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
                 self.is_first_sentence,
                 self.language,
                 video_template=self.video_template,
-                greeting_video=self.greeting_video
+                greeting_video=self.greeting_video,
+                face_template=self.face_template,
             )
             self.current_sentence = ""
 

@@ -20,6 +20,10 @@ ELEVEN_LABS_MULTILINGUAL_MODEL = 'eleven_multilingual_v2' if os.getenv(
     "ELEVEN_LABS_USE_V2",
     'false').lower() in ('true', '1') else 'eleven_multilingual_v1'
 
+# TRY_TURBO = os.getenv("ELEVEN_LABS_TRY_TURBO", 'false').lower() in ('true', '1')
+# STREAMING_TIMEOUT = os.getenv("ELEVEN_LABS_STREAMING_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
+# GENERATION_TIMEOUT = os.getenv("ELEVEN_LABS_GENERATION_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
+
 config = types.SimpleNamespace(**{
     'chunk_size': 1024,
     'url': 'https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/stream',
@@ -52,7 +56,7 @@ class ElevenLabs(Singleton, TextToSpeech):
     @timed
     async def stream(self, text, websocket, tts_event: asyncio.Event,
                      voice_id="21m00Tcm4TlvDq8ikWAM",
-                     first_sentence=False, language='en-US', video_template=None, greeting_video=None) -> None:
+                     first_sentence=False, language='en-US', video_template=None, greeting_video=None, face_template=None) -> None:
         if DEBUG:
             return
         if voice_id == "":
@@ -63,8 +67,9 @@ class ElevenLabs(Singleton, TextToSpeech):
             return
 
         headers = config.headers
-        if language != 'en-US':
-            config.data["model_id"] = 'eleven_multilingual_v1'
+        if True: #language != 'en-US':
+            # config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
+            config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,
@@ -101,7 +106,7 @@ class ElevenLabs(Singleton, TextToSpeech):
             video_url = await loop.run_in_executor(
                 None,
                 generate_video,
-                video_template,
+                face_template,
                 audio_url
             )
             print('generated video url: ', video_url)
@@ -114,7 +119,8 @@ class ElevenLabs(Singleton, TextToSpeech):
             logger.info("voice_id is not found in .env file, using ElevenLabs default voice")
             voice_id = "21m00Tcm4TlvDq8ikWAM"
         headers = config.headers
-        if language != 'en-US':
+        if True: #language != 'en-US':
+            # config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
             config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,

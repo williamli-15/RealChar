@@ -83,7 +83,8 @@ class CatalogManager(Singleton):
             visibility='public',
             tts=yaml_content["text_to_speech_use"],
             video_template=yaml_content.get("video_template"),
-            greeting_video=yaml_content.get("greeting_video")
+            greeting_video=yaml_content.get("greeting_video"),
+            face_template=yaml_content.get("face_template"),
         )
 
         if "avatar_id" in yaml_content:
@@ -110,9 +111,9 @@ class CatalogManager(Singleton):
             character_name = self.load_character(directory)
             if character_name and overwrite:
                 self.load_data(character_name, directory / 'data')
-        #         logger.info('Loaded data for character: ' + character_name)
-        # logger.info(
-        #     f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
+                # logger.info('Loaded data for character: ' + character_name)
+        logger.info(
+            f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
 
     def load_characters_from_community(self, overwrite):
         path = Path(__file__).parent / 'community'

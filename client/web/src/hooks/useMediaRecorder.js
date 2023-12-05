@@ -27,6 +27,7 @@ const useMediaRecorder = (
           deviceId: deviceId ? { exact: deviceId } : undefined,
           echoCancellation: true,
         },
+        video: false,
       })
       .then(stream => {
         mediaRecorder.current = new MediaRecorder(stream);
