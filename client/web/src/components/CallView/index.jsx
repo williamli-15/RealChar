@@ -72,15 +72,15 @@ const CallView = ({
         {isRecording ? (
           <IconButton
             Icon={MdCallEnd}
-            className='icon-red'
-            bgcolor='red'
+            className='icon-black'
+            bgcolor='black'
             onClick={handleStopCall}
           />
         ) : (
           <IconButton
             Icon={TbPhoneCall}
-            className='icon-green'
-            bgcolor='green'
+            className='icon-black'
+            bgcolor='black'
             onClick={handleContinueCall}
           />
         )}

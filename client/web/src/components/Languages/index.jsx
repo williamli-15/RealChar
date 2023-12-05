@@ -25,7 +25,7 @@ const Languages = ({ preferredLanguage, setPreferredLanguage }) => {
 
   return (
     <div className='languages-container'>
-      <label className='languages-label'>Language</label>
+      <label className='languages-label'>I want to learn...</label>
       <select
         className='select'
         value={preferredLanguage}

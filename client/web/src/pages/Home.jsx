@@ -30,7 +30,18 @@ const Home = ({
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // Get characters
+  const [currentText, setCurrentText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const texts = [
+    'Hello,',
+    'Welcome to Chia,',
+    "The world's first interactive\ndigital persona language learning platform",
+  ];
+  const typingDelay = 61;
+  const fadeDelay = 1000;
+
+  // Get characters. This effect is for fetching characters
   useEffect(() => {
     setLoading(true);
 
@@ -58,6 +69,27 @@ const Home = ({
       });
   }, [setCharacterGroups, token]);
 
+  // Start the typing animation for the first text when the component mounts and loading is done
+  useEffect(() => {
+    if (loading) return;
+    const typingAnimation = index => {
+      if (index < texts[textIndex].length) {
+        setCurrentText(texts[textIndex].substring(0, index + 1));
+        setTimeout(() => typingAnimation(index + 1), typingDelay);
+      } else {
+        setTimeout(() => {
+          setCurrentText('');
+          if (textIndex < texts.length - 1) {
+            setTextIndex(textIndex + 1);
+          } else {
+            setIsAnimationComplete(true);
+          }
+        }, fadeDelay);
+      }
+    };
+    typingAnimation(0);
+  }, [textIndex, loading]);
+
   const handleNextClick = () => {
     setCharacterConfirmed(true);
     const compressedCharacter = lz.compressToEncodedURIComponent(
@@ -78,14 +110,34 @@ const Home = ({
     }
   };
 
+  const renderTextWithLineBreaks = text => {
+    return text.split('\n').map((line, index) => (
+      <React.Fragment key={index}>
+        {index === 0 ? (
+          // The first line will inherit styles from .typing-text
+          <span>{line}</span>
+        ) : (
+          // The second line will have its own class .second-line
+          <div className='second-line'>{line}</div>
+        )}
+        {index < text.split('\n').length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className='home'>
-      {loading ? (
-        <h2>Loading...</h2>
-      ) : (
+      {/* {loading && <h2>Loading...</h2>} */}
+      {!loading && !isAnimationComplete && (
+        <div className='typing-container'>
+          <p key={textIndex} className='typing-text'>
+            {renderTextWithLineBreaks(currentText)}
+          </p>
+        </div>
+      )}
+      {!loading && isAnimationComplete && (
         <>
           <p className='header'>Choose Your Partner</p>
-
           <Characters
             isMobile={isMobile}
             characterGroups={characterGroups}
@@ -110,6 +162,7 @@ const Home = ({
             size='large'
             disabled={!selectedCharacter}
             sx={{
+              marginTop: '420px', // Adjust the margin as needed
               border: '1px solid black', // This line sets the border to black
               '&.Mui-disabled': {
                 backgroundColor: 'black',

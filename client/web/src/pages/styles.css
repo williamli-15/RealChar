@@ -3,7 +3,8 @@ h2,
 h4,
 li,
 p {
-  color: white;
+  color: black;
+  font-family: Courier, monospace;
 }
 
 .home {
@@ -14,12 +15,44 @@ p {
   width: 50vw;
 }
 
+.typing-container {
+  width: 100%; /* Ensure the container is the full width of its parent */
+  text-align: left; /* Align text to the left */
+  margin-top: 130px; /* Adjust the top margin to move it down */
+  margin-left: 550px; /* Adjust the left margin to move it to the right */
+}
+
+.typing-text {
+  display: inline-block;
+  white-space: nowrap; /* Keep the text in a single line */
+  animation: fadeIn 1s forwards;
+}
+
+.typing-text, .typing-text span {
+  /* Define the color here to ensure it's the same for both the <p> and <span> elements */
+  color: black; /* Set your desired color */
+  /* Other styles */
+}
+
+.second-line {
+  /* Apply different alignment, padding, or any other styles you want */
+  text-align: left; /* or any other alignment you prefer */
+  margin-left: -50px; /* If you want to indent it a bit */
+}
+
 .settings {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 15vw;
   margin-bottom: 30px;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* This will center the button horizontally */
+  width: 100%; /* Ensure the div takes up the full width */
 }
 
 .start-btn {
@@ -42,6 +75,8 @@ p {
 
 .center {
   text-align: center;
+  color: black;
+  font-family: Courier, monospace;
 }
 
 @keyframes pulse {

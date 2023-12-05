@@ -185,7 +185,7 @@ const Conversation = ({
         {isConnected.current && isThinking && isCallView ? (
           <span>{selectedCharacter.name} is thinking...</span>
         ) : isConnected.current && isRecording ? (
-          <span className='recording'>Recording</span>
+          <span></span>
         ) : null}
       </p>
 
