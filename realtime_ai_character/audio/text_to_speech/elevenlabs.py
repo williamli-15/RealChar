@@ -14,6 +14,9 @@ DEBUG = False
 ELEVEN_LABS_MULTILINGUAL_MODEL = 'eleven_multilingual_v2' if os.getenv(
     "ELEVEN_LABS_USE_V2",
     'false').lower() in ('true', '1') else 'eleven_multilingual_v1'
+TRY_TURBO = os.getenv("ELEVEN_LABS_TRY_TURBO", 'false').lower() in ('true', '1')
+STREAMING_TIMEOUT = os.getenv("ELEVEN_LABS_STREAMING_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
+GENERATION_TIMEOUT = os.getenv("ELEVEN_LABS_GENERATION_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
 
 config = types.SimpleNamespace(**{
     'chunk_size': 1024,
@@ -50,7 +53,7 @@ class ElevenLabs(Singleton, TextToSpeech):
         headers = config.headers
         if True: #language != 'en-US':
             # config.data["model_id"] = 'eleven_multilingual_v1'
-            config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
+            config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,
@@ -59,7 +62,7 @@ class ElevenLabs(Singleton, TextToSpeech):
         if first_sentence:
             url = url + '?optimize_streaming_latency=4'
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=data, headers=headers)
+            response = await client.post(url, json=data, headers=headers, timeout=STREAMING_TIMEOUT)
             if response.status_code != 200:
                 logger.error(
                     f"ElevenLabs returns response {response.status_code}")
@@ -78,7 +81,7 @@ class ElevenLabs(Singleton, TextToSpeech):
             voice_id = "21m00Tcm4TlvDq8ikWAM"
         headers = config.headers
         if True: #language != 'en-US':
-            config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
+            config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,
@@ -86,7 +89,7 @@ class ElevenLabs(Singleton, TextToSpeech):
         # Change to non-streaming endpoint
         url = config.url.format(voice_id=voice_id).replace('/stream', '')
         async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=data, headers=headers)
+            response = await client.post(url, json=data, headers=headers, timeout=GENERATION_TIMEOUT)
             if response.status_code != 200:
                 logger.error(f"ElevenLabs returns response {response.status_code}")
             # Get audio/mpeg from the response and return it
