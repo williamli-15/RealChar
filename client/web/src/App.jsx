@@ -68,6 +68,9 @@ const App = () => {
   const isConnecting = useRef(false);
   const isConnected = useRef(false);
   const isMobile = window.innerWidth <= 768;
+  // video player
+  const videoQueue = useRef([]);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged(async user => {
@@ -90,7 +93,6 @@ const App = () => {
     audioQueue.current = [];
     setIsPlaying(false);
   };
-
   // Helper functions
   const handleSocketOnOpen = async event => {
     console.log('successfully connected');
@@ -105,6 +107,13 @@ const App = () => {
   const handleSocketOnMessage = event => {
     if (typeof event.data === 'string') {
       const message = event.data;
+      if (message.startsWith('https://') && message.endsWith('.mp4')) {
+        videoQueue.current.push(event.data);
+        if (videoQueue.current.length === 1) {
+          setIsVideoPlaying(true);
+        }
+        return;
+      }
       if (!isTextStreaming) setIsTextStreaming(true);
       if (message === '[end]\n' || message.match(/\[end=([a-zA-Z0-9]+)\]/)) {
         setIsTextStreaming(false);
@@ -136,15 +145,20 @@ const App = () => {
         shouldPlayAudio.current = true;
       }
     } else {
+      // original play audio data
       // binary data
-      if (!shouldPlayAudio.current) {
-        console.log('should not play audio');
-        return;
-      }
-      audioQueue.current.push(event.data);
-      if (audioQueue.current.length === 1) {
-        setIsPlaying(true); // this will trigger playAudios in CallView.
-      }
+      // if (!shouldPlayAudio.current) {
+      //   console.log('should not play audio');
+      //   return;
+      // }
+      // audioQueue.current.push(event.data);
+      // if (audioQueue.current.length === 1) {
+      //   setIsPlaying(true); // this will trigger playAudios in CallView.
+      // }
+      // videoQueue.current.push(event.data);
+      // if (videoQueue.current.length === 1) {
+      //   setIsVideoPlaying(true);
+      // }
     }
   };
 
@@ -413,6 +427,9 @@ const App = () => {
                 token={token}
                 isTextStreaming={isTextStreaming}
                 sessionId={sessionId}
+                videoQueue={videoQueue}
+                isVideoPlaying={isVideoPlaying}
+                setIsVideoPlaying={setIsVideoPlaying}
               />
             }
           />

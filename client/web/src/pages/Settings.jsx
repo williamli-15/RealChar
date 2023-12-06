@@ -48,7 +48,7 @@ const Settings = ({
   shouldPlayAudio,
 }) => {
   const navigate = useNavigate();
-  const [commMethod, setCommMethod] = useState('Text');
+  const [commMethod, setCommMethod] = useState('Call');
 
   const { search } = useLocation();
   const { character = '' } = queryString.parse(search);
@@ -101,30 +101,30 @@ const Settings = ({
 
   return (
     <div className='settings'>
-      <h2 className='center'>Confirm your setting</h2>
+      <h2 className='center'>Which Language Interests You?</h2>
 
-      <CommunicationMethod
+      {/* <CommunicationMethod
         commMethod={commMethod}
         setCommMethod={setCommMethod}
-      />
+      /> */}
 
       <Languages
         preferredLanguage={preferredLanguage}
         setPreferredLanguage={setPreferredLanguage}
       />
 
-      <MediaDevices
+      {/* <MediaDevices
         selectedDevice={selectedDevice}
         setSelectedDevice={setSelectedDevice}
-      />
+      /> */}
 
-      <Models
+      {/* <Models
         isMobile={isMobile}
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
-      />
+      /> */}
 
-      <AdvancedOptions
+      {/* <AdvancedOptions
         isLoggedIn={isLoggedIn}
         token={token}
         setToken={setToken}
@@ -141,19 +141,33 @@ const Settings = ({
         useEchoCancellation={useEchoCancellation}
         setUseEchoCancellation={setUseEchoCancellation}
         send={send}
-      />
+      /> */}
 
-      <Button
-        variant='contained'
-        onClick={handleStartClick}
-        fullWidth
-        size='large'
-        sx={{
-          textTransform: 'none',
-        }}
-      >
-        Get Started
-      </Button>
+      <div className='button-container'>
+        <Button
+          variant='contained'
+          onClick={handleStartClick}
+          size='large'
+          sx={{
+            border: '1px solid black',
+            '&:hover': {
+              backgroundColor: 'white',
+            },
+            '&:active': {
+              backgroundColor: 'black',
+              color: 'white',
+            },
+            textTransform: 'none',
+            width: '200px',
+            fontFamily: 'Courier, monospace',
+            borderRadius: '10px',
+            backgroundColor: 'white',
+            color: 'black',
+          }}
+        >
+          Get Started
+        </Button>
+      </div>
     </div>
   );
 };

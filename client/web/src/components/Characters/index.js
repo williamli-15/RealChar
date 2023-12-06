@@ -28,9 +28,11 @@ const Characters = ({
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openLibraryDialog, setOpenLibraryDialog] = useState(false);
+  const [pressedCharacterId, setPressedCharacterId] = useState(null);
 
   const handleCharacterSelection = character => {
     setSelectedCharacter(character);
+    setPressedCharacterId(character.character_id); // Set the ID of the pressed character
   };
 
   const handleOpenDialog = () => {
@@ -66,24 +68,47 @@ const Characters = ({
                 variant='outlined'
                 onClick={() => handleCharacterSelection(character)}
                 sx={{
+                  display: 'flex', // Using flexbox layout
+                  alignItems: 'center', // Align items to the start (left)
+                  justifyContent: 'flex-start', // Align content to the start (left)
                   width: '100%',
-                  backgroundColor:
-                    selectedCharacter &&
-                    character.character_id === selectedCharacter.character_id
-                      ? '#35394A'
-                      : '#1B2134',
-                  borderColor:
-                    selectedCharacter &&
-                    character.character_id === selectedCharacter.character_id
-                      ? '#A7BFFF'
-                      : '#1B2134',
-                  '&:hover': {
-                    backgroundColor: '#35394A',
-                    borderColor: '#617CC2',
+                  position: 'relative', // Needed for pseudo-elements
+                  backgroundColor: 'black',
+                  color: 'white',
+                  fontFamily: 'Courier New, Courier, monospace',
+                  '&:before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    boxShadow: 'inset 1px -1px 0px rgba(255, 255, 255, 0.2)',
+                    borderRadius: '4px', // Match your button's border radius
+                    pointerEvents: 'none', // Ignore this layer for mouse events
                   },
-                  display: 'flex',
-                  justifyContent: 'left',
+                  boxShadow:
+                    pressedCharacterId === character.character_id
+                      ? 'inset 0px 4px 4px rgba(0, 0, 0, 0.25), 4px 4px 5px 0 rgba(0, 0, 0, 0.5)' // Both shadows coexisting
+                      : '4px 4px 5px 0 rgba(0, 0, 0, 0.5)', // Drop shadow for 3D effect
+                  transform:
+                    pressedCharacterId === character.character_id
+                      ? 'translate(2px, 2px)'
+                      : 'none', // Keep the button pressed
+                  borderColor:
+                    pressedCharacterId === character.character_id
+                      ? 'white'
+                      : 'black',
+                  '&:hover': {
+                    backgroundColor: 'black', // Default hover background color
+                    boxShadow: '3px 3px 4px 0 rgba(0,0,0,0.4)', // Lighter shadow on hover
+                    borderColor:
+                      pressedCharacterId === character.character_id
+                        ? 'white'
+                        : 'black', // Conditional border color on hover
+                  },
                   textTransform: 'none',
+                  transition: 'transform 0.1s, box-shadow 0.1s', // Smooth transition for pressing effect
                 }}
               >
                 <Avatar
@@ -95,7 +120,7 @@ const Characters = ({
                   variant='body1'
                   sx={{
                     color: 'white',
-                    fontFamily: 'Prompt, sans-serif',
+                    fontFamily: 'Courier New, Courier, monospace',
                   }}
                 >
                   {character.name}
@@ -104,72 +129,71 @@ const Characters = ({
             </Grid>
           )
       )}
+      {/*<Grid item xs={isMobile ? 12 : 6}>*/}
+      {/*  <Button*/}
+      {/*    variant='outlined'*/}
+      {/*    onClick={handleOpenDialog}*/}
+      {/*    sx={{*/}
+      {/*      width: '100%',*/}
+      {/*      backgroundColor: '#1B2134',*/}
+      {/*      borderColor: '#1B2134',*/}
+      {/*      '&:hover': {*/}
+      {/*        backgroundColor: '#35394A',*/}
+      {/*        borderColor: '#617CC2',*/}
+      {/*      },*/}
+      {/*      display: 'flex',*/}
+      {/*      justifyContent: 'left',*/}
+      {/*      textTransform: 'none',*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <Avatar sx={{ backgroundColor: 'transparent' }}>*/}
+      {/*      <GroupsIcon sx={{ color: 'white' }} />*/}
+      {/*    </Avatar>*/}
 
-      <Grid item xs={isMobile ? 12 : 6}>
-        <Button
-          variant='outlined'
-          onClick={handleOpenDialog}
-          sx={{
-            width: '100%',
-            backgroundColor: '#1B2134',
-            borderColor: '#1B2134',
-            '&:hover': {
-              backgroundColor: '#35394A',
-              borderColor: '#617CC2',
-            },
-            display: 'flex',
-            justifyContent: 'left',
-            textTransform: 'none',
-          }}
-        >
-          <Avatar sx={{ backgroundColor: 'transparent' }}>
-            <GroupsIcon sx={{ color: 'white' }} />
-          </Avatar>
+      {/*    <Typography*/}
+      {/*      variant='body1'*/}
+      {/*      sx={{*/}
+      {/*        color: 'white',*/}
+      {/*        fontFamily: 'Prompt, sans-serif',*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      Select from community*/}
+      {/*    </Typography>*/}
+      {/*  </Button>*/}
+      {/*</Grid>*/}
 
-          <Typography
-            variant='body1'
-            sx={{
-              color: 'white',
-              fontFamily: 'Prompt, sans-serif',
-            }}
-          >
-            Select from community
-          </Typography>
-        </Button>
-      </Grid>
+      {/*<Grid item xs={isMobile ? 12 : 6}>*/}
+      {/*  <Button*/}
+      {/*    variant='outlined'*/}
+      {/*    onClick={handleOpenLibraryDialog}*/}
+      {/*    sx={{*/}
+      {/*      width: '100%',*/}
+      {/*      backgroundColor: '#1B2134',*/}
+      {/*      borderColor: '#1B2134',*/}
+      {/*      '&:hover': {*/}
+      {/*        backgroundColor: '#35394A',*/}
+      {/*        borderColor: '#617CC2',*/}
+      {/*      },*/}
+      {/*      display: 'flex',*/}
+      {/*      justifyContent: 'left',*/}
+      {/*      textTransform: 'none',*/}
+      {/*    }}*/}
+      {/*  >*/}
+      {/*    <Avatar sx={{ backgroundColor: 'transparent' }}>*/}
+      {/*      <GroupsIcon sx={{ color: 'white' }} />*/}
+      {/*    </Avatar>*/}
 
-      <Grid item xs={isMobile ? 12 : 6}>
-        <Button
-          variant='outlined'
-          onClick={handleOpenLibraryDialog}
-          sx={{
-            width: '100%',
-            backgroundColor: '#1B2134',
-            borderColor: '#1B2134',
-            '&:hover': {
-              backgroundColor: '#35394A',
-              borderColor: '#617CC2',
-            },
-            display: 'flex',
-            justifyContent: 'left',
-            textTransform: 'none',
-          }}
-        >
-          <Avatar sx={{ backgroundColor: 'transparent' }}>
-            <GroupsIcon sx={{ color: 'white' }} />
-          </Avatar>
-
-          <Typography
-            variant='body1'
-            sx={{
-              color: 'white',
-              fontFamily: 'Prompt, sans-serif',
-            }}
-          >
-            Select from your library
-          </Typography>
-        </Button>
-      </Grid>
+      {/*    <Typography*/}
+      {/*      variant='body1'*/}
+      {/*      sx={{*/}
+      {/*        color: 'white',*/}
+      {/*        fontFamily: 'Prompt, sans-serif',*/}
+      {/*      }}*/}
+      {/*    >*/}
+      {/*      Select from your library*/}
+      {/*    </Typography>*/}
+      {/*  </Button>*/}
+      {/*</Grid>*/}
 
       <Dialog
         open={openDialog}
@@ -200,25 +224,44 @@ const Characters = ({
                     onClick={() => handleCharacterSelection(character)}
                     sx={{
                       width: '100%',
-                      backgroundColor:
-                        selectedCharacter &&
-                        character.character_id ===
-                          selectedCharacter.character_id
-                          ? '#35394A'
-                          : '#1B2134',
-                      borderColor:
-                        selectedCharacter &&
-                        character.character_id ===
-                          selectedCharacter.character_id
-                          ? '#A7BFFF'
-                          : '#1B2134',
-                      '&:hover': {
-                        backgroundColor: '#373E58',
-                        borderColor: '#A7BFFF',
+                      position: 'relative', // Needed for pseudo-elements
+                      backgroundColor: 'black',
+                      color: 'white',
+                      fontFamily: 'Courier New, Courier, monospace',
+                      '&:before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        boxShadow:
+                          'inset 1px -1px 0px rgba(255, 255, 255, 0.2)',
+                        borderRadius: '4px', // Match your button's border radius
+                        pointerEvents: 'none', // Ignore this layer for mouse events
                       },
-                      display: 'flex',
-                      justifyContent: 'left',
+                      boxShadow:
+                        pressedCharacterId === character.character_id
+                          ? 'inset 0px 4px 4px rgba(0, 0, 0, 0.25), 4px 4px 5px 0 rgba(0, 0, 0, 0.5)' // Both shadows coexisting
+                          : '4px 4px 5px 0 rgba(0, 0, 0, 0.5)', // Drop shadow for 3D effect
+                      transform:
+                        pressedCharacterId === character.character_id
+                          ? 'translate(2px, 2px)'
+                          : 'none', // Keep the button pressed
+                      borderColor:
+                        pressedCharacterId === character.character_id
+                          ? 'white'
+                          : 'black',
+                      '&:hover': {
+                        backgroundColor: 'black', // Default hover background color
+                        boxShadow: '3px 3px 4px 0 rgba(0,0,0,0.4)', // Lighter shadow on hover
+                        borderColor:
+                          pressedCharacterId === character.character_id
+                            ? 'white'
+                            : 'black', // Conditional border color on hover
+                      },
                       textTransform: 'none',
+                      transition: 'transform 0.1s, box-shadow 0.1s', // Smooth transition for pressing effect
                     }}
                   >
                     <Avatar
@@ -231,7 +274,7 @@ const Characters = ({
                         variant='body1'
                         sx={{
                           color: 'white',
-                          fontFamily: 'Prompt, sans-serif',
+                          fontFamily: 'Courier New, Courier, monospace',
                         }}
                       >
                         {character.name}
@@ -240,7 +283,7 @@ const Characters = ({
                         variant='body1'
                         sx={{
                           color: '#BEC5D9',
-                          fontFamily: 'Prompt, sans-serif',
+                          fontFamily: 'Courier New, Courier, monospace',
                           fontStyle: 'italic',
                         }}
                       >
@@ -300,25 +343,44 @@ const Characters = ({
                     onClick={() => handleCharacterSelection(character)}
                     sx={{
                       width: '100%',
-                      backgroundColor:
-                        selectedCharacter &&
-                        character.character_id ===
-                          selectedCharacter.character_id
-                          ? '#35394A'
-                          : '#1B2134',
-                      borderColor:
-                        selectedCharacter &&
-                        character.character_id ===
-                          selectedCharacter.character_id
-                          ? '#A7BFFF'
-                          : '#1B2134',
-                      '&:hover': {
-                        backgroundColor: '#373E58',
-                        borderColor: '#A7BFFF',
+                      position: 'relative', // Needed for pseudo-elements
+                      backgroundColor: 'black',
+                      color: 'white',
+                      fontFamily: 'Courier New, Courier, monospace',
+                      '&:before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        boxShadow:
+                          'inset 1px -1px 0px rgba(255, 255, 255, 0.2)',
+                        borderRadius: '4px', // Match your button's border radius
+                        pointerEvents: 'none', // Ignore this layer for mouse events
                       },
-                      display: 'flex',
-                      justifyContent: 'left',
+                      boxShadow:
+                        pressedCharacterId === character.character_id
+                          ? 'inset 0px 4px 4px rgba(0, 0, 0, 0.25), 4px 4px 5px 0 rgba(0, 0, 0, 0.5)' // Both shadows coexisting
+                          : '4px 4px 5px 0 rgba(0, 0, 0, 0.5)', // Drop shadow for 3D effect
+                      transform:
+                        pressedCharacterId === character.character_id
+                          ? 'translate(2px, 2px)'
+                          : 'none', // Keep the button pressed
+                      borderColor:
+                        pressedCharacterId === character.character_id
+                          ? 'white'
+                          : 'black',
+                      '&:hover': {
+                        backgroundColor: 'black', // Default hover background color
+                        boxShadow: '3px 3px 4px 0 rgba(0,0,0,0.4)', // Lighter shadow on hover
+                        borderColor:
+                          pressedCharacterId === character.character_id
+                            ? 'white'
+                            : 'black', // Conditional border color on hover
+                      },
                       textTransform: 'none',
+                      transition: 'transform 0.1s, box-shadow 0.1s', // Smooth transition for pressing effect
                     }}
                   >
                     <Avatar
@@ -331,7 +393,7 @@ const Characters = ({
                         variant='body1'
                         sx={{
                           color: 'white',
-                          fontFamily: 'Prompt, sans-serif',
+                          fontFamily: 'Courier New, Courier, monospace',
                         }}
                       >
                         {character.name}
@@ -340,7 +402,7 @@ const Characters = ({
                         variant='body1'
                         sx={{
                           color: '#BEC5D9',
-                          fontFamily: 'Prompt, sans-serif',
+                          fontFamily: 'Courier New, Courier, monospace',
                           fontStyle: 'italic',
                         }}
                       >

@@ -1,7 +1,8 @@
 .languages-label {
   margin-top: 40px;
   margin-bottom: 20px;
-  color: #e0e0e0;
+  color: black;
+  font-family: Courier, monospace;
 }
 
 .select {
@@ -13,4 +14,6 @@
   border-radius: 5px;
   margin-top: 20px;
   margin-bottom: 30px;
+  font-family: Courier, monospace;
+  text-align: center;
 }

@@ -19,4 +19,5 @@ header {
 
 #navbar {
   background: none;
+  box-shadow: none !important;
 }

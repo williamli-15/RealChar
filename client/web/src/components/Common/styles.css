@@ -1,11 +1,11 @@
 .button {
-  font-family: 'Prompt', Helvetica;
+  font-family: Courier, monospace;
   font-size: 1rem;
-  border-color: #6785d3;
+  border-color: black;
   color: #fff;
-  box-shadow:
-    0 0 10px 0 #6785d3 inset,
-    0 0 10px 4px #6785d3;
+  /* box-shadow:
+    0 0 10px 0 black inset,
+    0 0 10px 4px black; */
   transition: all 150ms ease-in-out;
   cursor: pointer;
   background-color: transparent;
@@ -15,9 +15,9 @@
 }
 
 .button:hover {
-  box-shadow:
-    0 0 40px 40px #6785d3 inset,
-    0 0 0 0 #6785d3;
+  /* box-shadow:
+    0 0 40px 40px black inset,
+    0 0 0 0 black; */
   outline: 0;
 }
 
@@ -68,6 +68,14 @@
   background-color: #28c235;
 }
 
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
+
 .icon-red:hover {
   background-color: #ff4242;
   transform: scale(1.1);
@@ -80,6 +88,16 @@
 
 .icon-green:hover {
   background-color: #28c235;
+  transform: scale(1.1);
+}
+
+.icon-black:hover {
+  background-color: black;
+  transform: scale(1.1);
+}
+
+.icon-white:hover {
+  background-color: white;
   transform: scale(1.1);
 }
 

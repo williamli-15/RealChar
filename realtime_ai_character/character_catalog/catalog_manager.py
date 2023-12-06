@@ -30,7 +30,7 @@ class CatalogManager(Singleton):
         self.sql_load_lock = rwlock.RWLockFair()
 
         if overwrite:
-            logger.info('Overwriting existing data in the chroma.')
+            # logger.info('Overwriting existing data in the chroma.')
             self.db.delete_collection()
             self.db = get_chroma()
 
@@ -39,10 +39,10 @@ class CatalogManager(Singleton):
         self.load_characters_from_community(overwrite)
         self.load_characters(overwrite)
         if overwrite:
-            logger.info('Persisting data in the chroma.')
+            # logger.info('Persisting data in the chroma.')
             self.db.persist()
-        logger.info(
-            f"Total document load: {self.db._client.get_collection('llm').count()}")
+        # logger.info(
+        #     f"Total document load: {self.db._client.get_collection('llm').count()}")
         self.run_load_sql_db_thread = True
         self.load_sql_db_thread = threading.Thread(target=self.load_sql_db_loop)
         self.load_sql_db_thread.daemon = True
@@ -62,9 +62,11 @@ class CatalogManager(Singleton):
 
     def load_character(self, directory):
         with ExitStack() as stack:
-            f_yaml = stack.enter_context(open(directory / 'config.yaml'))
+            f_yaml = stack.enter_context(open(directory / 'config.yaml', encoding='utf-8'))
             yaml_content = yaml.safe_load(f_yaml)
-
+        enabled = yaml_content.get('enabled', False)
+        if not enabled:
+            return
         character_id = yaml_content['character_id']
         character_name = yaml_content['character_name']
         voice_id = str(yaml_content['voice_id'])
@@ -79,7 +81,10 @@ class CatalogManager(Singleton):
             source='default',
             location='repo',
             visibility='public',
-            tts=yaml_content["text_to_speech_use"]
+            tts=yaml_content["text_to_speech_use"],
+            video_template=yaml_content.get("video_template"),
+            greeting_video=yaml_content.get("greeting_video"),
+            face_template=yaml_content.get("face_template"),
         )
 
         if "avatar_id" in yaml_content:
@@ -106,11 +111,11 @@ class CatalogManager(Singleton):
 
         for directory in directories:
             character_name = self.load_character(directory)
-            if overwrite:
+            if character_name and overwrite:
                 self.load_data(character_name, directory / 'data')
-                logger.info('Loaded data for character: ' + character_name)
-        logger.info(
-            f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
+        #         logger.info('Loaded data for character: ' + character_name)
+        # logger.info(
+        #     f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
 
     def load_characters_from_community(self, overwrite):
         path = Path(__file__).parent / 'community'
@@ -120,7 +125,7 @@ class CatalogManager(Singleton):
                        and d.name not in excluded_dirs]
         for directory in directories:
             with ExitStack() as stack:
-                f_yaml = stack.enter_context(open(directory / 'config.yaml'))
+                f_yaml = stack.enter_context(open(directory / 'config.yaml', encoding='utf-8'))
                 yaml_content = yaml.safe_load(f_yaml)
             character_id = yaml_content['character_id']
             character_name = yaml_content['character_name']
@@ -142,7 +147,7 @@ class CatalogManager(Singleton):
 
             if overwrite:
                 self.load_data(character_name, directory / 'data')
-                logger.info('Loaded data for character: ' + character_name)
+                # logger.info('Loaded data for character: ' + character_name)
 
     def load_data(self, character_name: str, data_path: str):
         loader = SimpleDirectoryReader(Path(data_path))
@@ -161,7 +166,7 @@ class CatalogManager(Singleton):
 
 
     def load_character_from_sql_database(self):
-        logger.info('Started loading characters from SQL database')
+        # logger.info('Started loading characters from SQL database')
         character_models = self.sql_db.query(CharacterModel).all()
 
         # I'm not using the database for characters, so I want to limit how many times I have to load it
@@ -211,8 +216,8 @@ class CatalogManager(Singleton):
                 )
                 self.characters[character_model.id] = character
                 # TODO: load context data from storage
-        logger.info(
-            f'Loaded {len(character_models)} characters from sql database')
+        # logger.info(
+        #     f'Loaded {len(character_models)} characters from sql database')
 
 
 def get_catalog_manager():

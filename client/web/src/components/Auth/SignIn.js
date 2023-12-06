@@ -81,9 +81,9 @@ const SignIn = ({ isLoggedIn, setToken }) => {
 
   return (
     <form onSubmit={signIn}>
-      <button type='submit' disabled={isLoading} className='auth-btn'>
+      {/* <button type='submit' disabled={isLoading} className='auth-btn'>
         {isLoading ? 'Signing In...' : 'Sign in'}
-      </button>
+      </button> */}
     </form>
   );
 };

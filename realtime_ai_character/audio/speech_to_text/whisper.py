@@ -76,6 +76,7 @@ class Whisper(Singleton, SpeechToText):
             audio,
             language=language,
             vad_filter=True,
+            condition_on_previous_text=False,
             initial_prompt=prompt,
             suppress_tokens=suppress_tokens,
         )

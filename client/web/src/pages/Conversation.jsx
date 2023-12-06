@@ -7,9 +7,8 @@
 import React, { useEffect, useState } from 'react';
 import CallView from '../components/CallView';
 import TextView from '../components/TextView';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
-import Avatar from '@mui/material/Avatar';
 import useAvatarView from '../components/AvatarView';
 import { extractEmotionFromPrompt } from '@avatechai/avatars';
 import lz from 'lz-string';
@@ -55,6 +54,9 @@ const Conversation = ({
   setSelectedDevice,
   setUseMultiOn,
   connect,
+  videoQueue,
+  isVideoPlaying,
+  setIsVideoPlaying,
 }) => {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -74,6 +76,34 @@ const Conversation = ({
   const useMultiOn = useMultiOnParam === 'true';
   const message = isTextStreaming ? '' : textAreaValue;
   const [emotion, setEmotion] = useState('');
+  // --------
+  // 【video vars】
+  // 【Start】
+  // --------
+  // eslint-disable-next-line no-undef
+  const [videoSource, setVideoSource] = useState('');
+  const [videoTemplate, setVideoTemplate] = useState('');
+  const videoPlayer = React.useRef(null);
+  useEffect(() => {
+    if (videoQueue.current.length > 0) {
+      // MediaStream
+      const src = videoQueue.current.shift();
+      console.info('videoQueue pop: ', src);
+      videoPlayer.current.loop = false;
+      setVideoSource(src);
+      videoPlayer.current.play();
+    }
+  }, [isVideoPlaying]);
+
+  useEffect(() => {
+    if (videoPlayer.current !== null) {
+      videoPlayer.current.load();
+    }
+  }, [videoSource]);
+  // --------
+  // 【video vars】
+  // 【End】
+  // --------
 
   const { avatarDisplay, playAudioFromNode } = useAvatarView(
     selectedCharacter?.avatar_id,
@@ -100,6 +130,10 @@ const Conversation = ({
     const paramSelectedCharacter = JSON.parse(
       lz.decompressFromEncodedURIComponent(character)
     );
+
+    setVideoSource(paramSelectedCharacter.greeting_video);
+    setVideoTemplate(paramSelectedCharacter.video_template);
+
     setSelectedCharacter(paramSelectedCharacter);
 
     setSelectedModel(selectedModel);
@@ -159,11 +193,39 @@ const Conversation = ({
         {selectedCharacter?.avatar_id ? (
           <>{avatarDisplay}</>
         ) : (
-          <Avatar
-            alt={selectedCharacter.name}
-            src={selectedCharacter.image_url}
-            sx={{ width: 76, height: 76 }}
-          />
+          <video
+            autoPlay
+            id='talking-video'
+            ref={videoPlayer}
+            className={`speech-video`}
+            onPause={event => {
+              console.info('onPause: ', event);
+              if (videoSource !== videoTemplate) {
+                videoPlayer.current.loop = true;
+                setVideoSource(videoTemplate);
+                setIsVideoPlaying(false);
+              }
+            }}
+            onLoadedMetadata={event => {
+              console.info('onLoadedMetadata: ', event);
+              const beforeIsRecording = isRecording;
+              handleStopCall();
+              const duration = event.target.duration;
+              setTimeout(() => {
+                if (beforeIsRecording) {
+                  handleContinueCall();
+                }
+              }, duration * 1000);
+            }}
+            onLoadStart={event => {
+              console.info('onLoadStart: ', event);
+            }}
+            onLoadedData={event => {
+              console.info('onLoadedData: ', event);
+            }}
+          >
+            <source src={videoSource} type='video/mp4'></source>
+          </video>
         )}
       </div>
 

@@ -62,6 +62,7 @@ async def get_current_user(token: str):
 
     return decoded_token['uid']
 
+
 @dataclass
 class SessionAuthResult:
     is_existing_session: bool
@@ -98,9 +99,10 @@ async def check_session_auth(session_id: str, user_id: str, db: Session) -> Sess
             is_authenticated_user=True,
         )
     return SessionAuthResult(
-            is_existing_session=True,
-            is_authenticated_user=False,
+        is_existing_session=True,
+        is_authenticated_user=False,
     )
+
 
 @router.websocket("/ws/{session_id}")
 async def websocket_endpoint(websocket: WebSocket,
@@ -187,12 +189,12 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
         character_name_list, character_id_list = zip(*character_list)
         while not character:
             character_message = "\n".join([
-                f"{i+1} - {character}"
+                f"{i + 1} - {character}"
                 for i, character in enumerate(character_name_list)
             ])
             await manager.send_message(
                 message=f"Select your character by entering the corresponding number:\n"
-                f"{character_message}\n",
+                        f"{character_message}\n",
                 websocket=websocket)
             data = await websocket.receive()
 
@@ -204,7 +206,7 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 if selection > len(character_list) or selection < 1:
                     await manager.send_message(
                         message=f"Invalid selection. Select your character ["
-                        f"{', '.join(catalog_manager.characters.keys())}]\n",
+                                f"{', '.join(catalog_manager.characters.keys())}]\n",
                         websocket=websocket)
                     continue
                 character = catalog_manager.get_character(
@@ -246,6 +248,7 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 face_template=face_template,
             ))
         logger.debug(f"Text-To-Speech stream task created: {tts_task.get_name()}")
+
         # Send end of the greeting so the client knows when to start listening
         await manager.send_message(message='[end]\n', websocket=websocket)
 
@@ -300,7 +303,13 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                                 on_new_token, []),
                             audioCallback=AsyncCallbackAudioHandler(
                                 text_to_speech, websocket, tts_event,
-                                character.voice_id)))
+                                character.voice_id,
+                                video_template=video_template,
+                                greeting_video=greeting_video,
+                                face_template=face_template,
+                            )
+                        )
+                    )
                     continue
                 # 1. Whether client will send speech interim audio clip in the next message.
                 if msg_data.startswith('[&Speech]'):
@@ -340,7 +349,11 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                     callback=AsyncCallbackTextHandler(on_new_token,
                                                       token_buffer),
                     audioCallback=AsyncCallbackAudioHandler(
-                        text_to_speech, websocket, tts_event, character.voice_id),
+                        text_to_speech, websocket, tts_event, character.voice_id,
+                        video_template=video_template,
+                        greeting_video=greeting_video,
+                        face_template=face_template
+                    ),
                     character=character,
                     useSearch=use_search,
                     useQuivr=use_quivr,
@@ -366,16 +379,16 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 if use_multion:
                     tools.append('multion')
                 interaction = Interaction(user_id=user_id,
-                            session_id=session_id,
-                            client_message_unicode=msg_data,
-                            server_message_unicode=response,
-                            platform=platform,
-                            action_type='text',
-                            character_id=character_id,
-                            tools=','.join(tools),
-                            language=language,
-                            message_id=message_id,
-                            llm_config=llm.get_config())
+                                          session_id=session_id,
+                                          client_message_unicode=msg_data,
+                                          server_message_unicode=response,
+                                          platform=platform,
+                                          action_type='text',
+                                          character_id=character_id,
+                                          tools=','.join(tools),
+                                          language=language,
+                                          message_id=message_id,
+                                          llm_config=llm.get_config())
                 await asyncio.to_thread(interaction.save, db)
 
             # handle binary message(audio)
@@ -402,8 +415,8 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
 
                 # 1. Transcribe audio
                 transcript: str = (await asyncio.to_thread(speech_to_text.transcribe,
-                    binary_data, platform=platform,
-                    prompt=character.name)).strip()
+                                                           binary_data, platform=platform,
+                                                           prompt=character.name)).strip()
 
                 # ignore audio that picks up background noise
                 if (not transcript or len(transcript) < 2):
@@ -438,15 +451,15 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                     if use_multion:
                         tools.append('multion')
                     interaction = Interaction(user_id=user_id,
-                                session_id=session_id,
-                                client_message_unicode=transcript,
-                                server_message_unicode=response,
-                                platform=platform,
-                                action_type='audio',
-                                character_id=character_id,
-                                tools=','.join(tools),
-                                language=language,
-                                llm_config=llm.get_config())
+                                              session_id=session_id,
+                                              client_message_unicode=transcript,
+                                              server_message_unicode=response,
+                                              platform=platform,
+                                              action_type='audio',
+                                              character_id=character_id,
+                                              tools=','.join(tools),
+                                              language=language,
+                                              llm_config=llm.get_config())
                     await asyncio.to_thread(interaction.save, db)
 
                 # 4. Send "thinking" status over websocket
@@ -469,14 +482,18 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                                   tts_task_done_call_back),
                               audioCallback=AsyncCallbackAudioHandler(
                                   text_to_speech, websocket, tts_event,
-                                  character.voice_id),
+                                  character.voice_id,
+                                  video_template=video_template,
+                                  greeting_video=greeting_video,
+                                  face_template=face_template
+                              ),
                               character=character,
                               useSearch=use_search,
                               useQuivr=use_quivr,
                               useMultiOn=use_multion,
                               quivrApiKey=quivr_info.quivr_api_key if quivr_info else None,
                               quivrBrainId=quivr_info.quivr_brain_id if quivr_info else None))
-                
+
             # log latency info
             timer.report()
 
