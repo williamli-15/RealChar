@@ -216,6 +216,10 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
         else:
             text_to_speech = default_text_to_speech
 
+        video_template = character.video_template
+        greeting_video = character.greeting_video
+        face_template = character.face_template
+
         conversation_history.system_prompt = character.llm_system_prompt
         user_input_template = character.llm_user_prompt
         logger.info(
@@ -236,7 +240,10 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 tts_event=tts_event,
                 voice_id=character.voice_id,
                 first_sentence=True,
-                language=language
+                language=language,
+                video_template=video_template,
+                greeting_video=greeting_video,
+                face_template=face_template,
             ))
         logger.debug(f"Text-To-Speech stream task created: {tts_task.get_name()}")
         # Send end of the greeting so the client knows when to start listening

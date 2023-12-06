@@ -27,6 +27,9 @@ class Character:
     tts: Optional[str] = ''
     data: Optional[dict] = None
     greeting_message: Optional[str] = ''
+    video_template: Optional[str] = None
+    greeting_video: Optional[str] = None
+    face_template: Optional[str] = None
 
 
 @dataclass

@@ -73,14 +73,16 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
                 else:
                     if self.is_first_sentence:
                         timer.log("LLM First Sentence", lambda: timer.start("TTS First Sentence"))
-                    await self.text_to_speech.stream(
-                        self.current_sentence,
-                        self.websocket,
-                        self.tts_event,
-                        self.voice_id,
-                        self.is_first_sentence,
-                        self.language)
-                    self.current_sentence = ""
+                    # await self.text_to_speech.stream(
+                    #     self.current_sentence,
+                    #     self.websocket,
+                    #     self.tts_event,
+                    #     self.voice_id,
+                    #     self.is_first_sentence,
+                    #     self.language,
+                    #     video_template=self.video_template,
+                    #     greeting_video=self.greeting_video)
+                    # self.current_sentence = ""
                     if self.is_first_sentence:
                         self.is_first_sentence = False
                     timer.log("TTS First Sentence")
@@ -96,9 +98,14 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
                     self.tts_event,
                     self.voice_id,
                     self.is_first_sentence,
-                    self.language)
+                    self.language,
+                video_template=self.video_template,
+                greeting_video=self.greeting_video,
+                face_template=self.face_template,
+            )
         except Exception as e:
             logger.exception(f'Error processing end of LLM stream in AsyncCallbackAudioHandler {e}')
+            self.current_sentence = ""
 
 class SearchAgent:
 
