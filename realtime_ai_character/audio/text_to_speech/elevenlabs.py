@@ -19,6 +19,7 @@ DEBUG = False
 ELEVEN_LABS_MULTILINGUAL_MODEL = 'eleven_multilingual_v2' if os.getenv(
     "ELEVEN_LABS_USE_V2",
     'false').lower() in ('true', '1') else 'eleven_multilingual_v1'
+TRY_TURBO = os.getenv("ELEVEN_LABS_TRY_TURBO", 'false').lower() in ('true', '1')
 
 config = types.SimpleNamespace(**{
     'chunk_size': 1024,
@@ -63,8 +64,9 @@ class ElevenLabs(Singleton, TextToSpeech):
             return
 
         headers = config.headers
-        if language != 'en-US':
-            config.data["model_id"] = 'eleven_multilingual_v1'
+        if True: #language != 'en-US':
+            # config.data["model_id"] = 'eleven_multilingual_v1'
+            config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,
@@ -114,8 +116,8 @@ class ElevenLabs(Singleton, TextToSpeech):
             logger.info("voice_id is not found in .env file, using ElevenLabs default voice")
             voice_id = "21m00Tcm4TlvDq8ikWAM"
         headers = config.headers
-        if language != 'en-US':
-            config.data["model_id"] = ELEVEN_LABS_MULTILINGUAL_MODEL
+        if True: #language != 'en-US':
+            config.data["model_id"] = "eleven_turbo_v2" if TRY_TURBO else ELEVEN_LABS_MULTILINGUAL_MODEL
         data = {
             "text": text,
             **config.data,

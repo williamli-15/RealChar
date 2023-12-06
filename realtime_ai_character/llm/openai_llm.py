@@ -62,7 +62,8 @@ class OpenaiLlm(LLM):
                     metadata: dict = None,
                     *args, **kwargs) -> str:
         # 1. Generate context
-        context = self._generate_context(user_input, character)
+        # context = self._generate_context(user_input, character)
+        context = ""
         memory_context = self._generate_memory_context(user_id='', query=user_input)
         if memory_context:
             context += ("Information regarding this user based on previous chat: "
@@ -80,6 +81,7 @@ class OpenaiLlm(LLM):
                 context += response
 
         # 2. Add user input to history
+        context = ""
         history.append(HumanMessage(content=user_input_template.format(
             context=context, query=user_input)))
 
@@ -92,7 +94,7 @@ class OpenaiLlm(LLM):
 
     def _generate_context(self, query, character: Character) -> str:
         docs = self.db.similarity_search(query)
-        docs = [d for d in docs if d.metadata['character_name'] == character.name]
+        # docs = [d for d in docs if d.metadata['character_name'] == character.name]
         logger.info(f'Found {len(docs)} documents')
 
         context = '\n'.join([d.page_content for d in docs])

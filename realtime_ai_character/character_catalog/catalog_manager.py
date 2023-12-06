@@ -110,7 +110,8 @@ class CatalogManager(Singleton):
         for directory in directories:
             character_name = self.load_character(directory)
             if character_name and overwrite:
-                self.load_data(character_name, directory / 'data')
+                # self.load_data(character_name, directory / 'data')
+                pass
         #         logger.info('Loaded data for character: ' + character_name)
         # logger.info(
         #     f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
