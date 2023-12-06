@@ -26,6 +26,7 @@ from realtime_ai_character.utils import (ConversationHistory, build_history,
                                          get_connection_manager, get_timer)
 
 logger = get_logger(__name__)
+logger.setLevel('DEBUG')
 
 router = APIRouter()
 
@@ -232,7 +233,7 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
         token_buffer = []
 
         # Greet the user
-        greeting_text = GREETING_TXT_MAP[language]
+        greeting_text = character.greeting_message if character.greeting_message else GREETING_TXT_MAP[language]
         await manager.send_message(message=greeting_text, websocket=websocket)
         tts_task = asyncio.create_task(
             text_to_speech.stream(
@@ -245,8 +246,9 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 video_template=video_template,
                 greeting_video=greeting_video,
                 face_template=face_template,
-            )
-        )
+            ))
+        logger.debug(f"Text-To-Speech stream task created: {tts_task.get_name()}")
+
         # Send end of the greeting so the client knows when to start listening
         await manager.send_message(message='[end]\n', websocket=websocket)
 

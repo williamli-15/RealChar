@@ -12,6 +12,7 @@ from realtime_ai_character.logger import get_logger
 from realtime_ai_character.utils import get_timer, timed
 
 logger = get_logger(__name__)
+logger.setLevel('DEBUG')
 
 timer = get_timer()
 
@@ -64,17 +65,18 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
         pass
 
     async def on_llm_new_token(self, token: str, *args, **kwargs):
-        timer.log("LLM First Token", lambda: timer.start("LLM First Sentence"))
-        if (
-            not self.is_reply and ">" in token
-        ):  # small models might not give ">" (e.g. llama2-7b gives ">:" as a token)
-            self.is_reply = True
-        elif self.is_reply:
-            if token not in {'.', '?', '!'}:
-                self.current_sentence += token
-            else:
-                if self.is_first_sentence:
-                    timer.log("LLM First Sentence", lambda: timer.start("TTS First Sentence"))
+        try:
+            timer.log("LLM First Token", lambda: timer.start("LLM First Sentence"))
+            if (
+                not self.is_reply and ">" in token
+            ):  # small models might not give ">" (e.g. llama2-7b gives ">:" as a token)
+                self.is_reply = True
+            elif self.is_reply:
+                if token not in {'.', '?', '!'}:
+                    self.current_sentence += token
+                else:
+                    if self.is_first_sentence:
+                        timer.log("LLM First Sentence", lambda: timer.start("TTS First Sentence"))
                     # await self.text_to_speech.stream(
                     #     self.current_sentence,
                     #     self.websocket,
@@ -83,27 +85,32 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
                     #     self.is_first_sentence,
                     #     self.language,
                     #     video_template=self.video_template,
-                    #     greeting_video=self.greeting_video
-                    # )
-                # self.current_sentence = ""
-                if self.is_first_sentence:
-                    self.is_first_sentence = False
-                timer.log("TTS First Sentence")
+                    #     greeting_video=self.greeting_video)
+                    # self.current_sentence = ""
+                    if self.is_first_sentence:
+                        self.is_first_sentence = False
+                    timer.log("TTS First Sentence")
+        except Exception as e:
+            logger.exception(f'Error processing new token in AsyncCallbackAudioHandler: {e}')
 
     async def on_llm_end(self, *args, **kwargs):
-        if self.current_sentence != "":
-            await self.text_to_speech.stream(
-                self.current_sentence,
-                self.websocket,
-                self.tts_event,
-                self.voice_id,
-                self.is_first_sentence,
-                self.language,
-                video_template=self.video_template,
-                greeting_video=self.greeting_video,
-                face_template=self.face_template,
-            )
-            self.current_sentence = ""
+        try:
+            if self.current_sentence != "":
+                await self.text_to_speech.stream(
+                    self.current_sentence,
+                    self.websocket,
+                    self.tts_event,
+                    self.voice_id,
+                    self.is_first_sentence,
+                    self.language,
+                    video_template=self.video_template,
+                    greeting_video=self.greeting_video,
+                    face_template=self.face_template,
+                )
+        except Exception as e:
+            logger.exception(f'Error processing end of LLM stream in AsyncCallbackAudioHandler {e}')
+        
+        self.current_sentence = ""
 
 class SearchAgent:
 
