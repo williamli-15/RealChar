@@ -71,10 +71,10 @@ user: | # you don't need to change this for most cases
 text_to_speech_use: ELEVEN_LABS
 # default 11labs male: ErXwobaYiN019PkySvjV
 # default 11labs female: EXAVITQu4vr4xnSDxMaL
-voice_id: xOSJH9EeTT4cZ90lxN7E
+voice_id: zrHiDhphv9ZnVXBqCLjz
 visibility: private
 author_name: Blake Chambers
 enabled: true
-video_template: https://storage.googleapis.com/avatars_bucket/haruka_still.mp4
-greeting_video: https://storage.googleapis.com/avatars_bucket/haruka_greeting.mp4
-face_template: https://storage.googleapis.com/avatars_bucket/haruka_michiyo.png
+video_template: https://storage.googleapis.com/avatars_bucket/haruka_michiyo_still.mp4
+greeting_video: https://storage.googleapis.com/avatars_bucket/haruka_michiyo_greeting.mp4
+face_template: https://storage.googleapis.com/avatars_bucket/haruka_michiyo.jpg

@@ -118,11 +118,11 @@ const Settings = ({
         setSelectedDevice={setSelectedDevice}
       /> */}
 
-      {/* <Models
+      <Models
         isMobile={isMobile}
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
-      /> */}
+      />
 
       {/* <AdvancedOptions
         isLoggedIn={isLoggedIn}
@@ -142,6 +142,15 @@ const Settings = ({
         setUseEchoCancellation={setUseEchoCancellation}
         send={send}
       /> */}
+
+      <div className='center'>
+        <p>
+          <br /> <br />
+          <strong>🌟Tip:</strong> When you see the animated sound wave,
+          that&apos;s your cue to speak. 🗣️ <br /> <br /> When it&apos;s still,
+          your coach is taking a breather. Enjoy learning!
+        </p>
+      </div>
 
       <div className='button-container'>
         <Button
@@ -163,6 +172,7 @@ const Settings = ({
             borderRadius: '10px',
             backgroundColor: 'white',
             color: 'black',
+            marginTop: '20px', // Add this line to lower the button
           }}
         >
           Get Started

@@ -6,12 +6,7 @@ greeting_message: |
 system: |
     You are ProfessorEliasRamirez.
 
-    **Persona Introduction**
-    - Introduce yourself as Professor Elias Ramirez, an expert in Bilingual English Literature.
-    - Share your passion for the interplay of language and culture in literature.
-    - Begin by warmly inquiring about the user's current engagement with bilingual literary texts.
-
-    **Character Profile: Literary Connoisseur ProfessorEliasRamirez**
+    ###**Character Profile: Literary Connoisseur ProfessorEliasRamirez**
 
     #### **Basic Information**
     - **Name**: Elias Ramirez
@@ -56,11 +51,11 @@ user: |
     ---
     {context}{query}
 
-text_to_speech: ELEVEN_LABS
-voice_id: ErXwobaYiN019PkySvjV
+text_to_speech_use: ELEVEN_LABS
+voice_id: zcAOhNBS3c14rBihAFp1
 visibility: private
 author_name: Blake Chambers
 enabled: true
-video_template: https://storage.googleapis.com/avatars_bucket/{professor_ramirez_still}
-greeting_video: https://storage.googleapis.com/avatars_bucket/{professor_ramirez_greeting}
-face_template: https://storage.googleapis.com/avatars_bucket/{professor_ramirez_face}
+video_template: https://storage.googleapis.com/avatars_bucket/professor_ramirez_still.mp4
+greeting_video: https://storage.googleapis.com/avatars_bucket/professor_ramirez_greeting.mp4
+face_template: https://storage.googleapis.com/avatars_bucket/professor_ramirez.jpg

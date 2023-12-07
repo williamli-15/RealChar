@@ -81,6 +81,7 @@ const Conversation = ({
   // 【Start】
   // --------
   // eslint-disable-next-line no-undef
+  const [isGreetingVideoEnded, setIsGreetingVideoEnded] = useState(false);
   const [videoSource, setVideoSource] = useState('');
   const [videoTemplate, setVideoTemplate] = useState('');
   const videoPlayer = React.useRef(null);
@@ -185,7 +186,7 @@ const Conversation = ({
         {isConnected.current && isThinking && isCallView ? (
           <span>{selectedCharacter.name} is thinking...</span>
         ) : isConnected.current && isRecording ? (
-          <span className='recording'>Recording</span>
+          <span></span>
         ) : null}
       </p>
 
@@ -200,6 +201,9 @@ const Conversation = ({
             className={`speech-video`}
             onPause={event => {
               console.info('onPause: ', event);
+              if (!isGreetingVideoEnded) {
+                setIsGreetingVideoEnded(true); // Set the flag true after first video ends
+              }
               if (videoSource !== videoTemplate) {
                 videoPlayer.current.loop = true;
                 setVideoSource(videoTemplate);
@@ -234,6 +238,7 @@ const Conversation = ({
         style={{ display: isCallView ? 'flex' : 'none' }}
       >
         <CallView
+          isGreetingVideoEnded={isGreetingVideoEnded}
           isRecording={isRecording}
           isPlaying={isPlaying}
           isResponding={isResponding}
@@ -256,6 +261,7 @@ const Conversation = ({
         style={{ display: isCallView ? 'none' : 'flex' }}
       >
         <TextView
+          isRecording={isRecording}
           selectedCharacter={selectedCharacter}
           send={send}
           isPlaying={isPlaying}

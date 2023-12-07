@@ -14,6 +14,8 @@ const IconButton = ({
   onClick,
   bgcolor = 'default',
   disabled = false,
+  textLabel,
+  textColor = 'white', // Default text color set to white
 }) => {
   return (
     <div
@@ -22,7 +24,13 @@ const IconButton = ({
       }`}
       onClick={disabled ? null : onClick}
     >
-      <Icon className='icon-instance-node-small' />
+      {textLabel ? (
+        <span className='icon-text' style={{ color: textColor }}>
+          {textLabel}
+        </span>
+      ) : (
+        <Icon className='icon-instance-node-small' />
+      )}
     </div>
   );
 };

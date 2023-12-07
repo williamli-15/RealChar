@@ -11,16 +11,17 @@ import './style.css';
 const Languages = ({ preferredLanguage, setPreferredLanguage }) => {
   const languages = [
     'English',
-    'Spanish',
-    'French',
-    'German',
-    'Hindi',
-    'Italian',
-    'Polish',
-    'Portuguese',
-    'Chinese',
-    'Japanese',
-    'Korean',
+    // 'Spanish',
+    // 'French',
+    // 'German',
+    // 'Hindi',
+    // 'Italian',
+    // 'Polish',
+    // 'Portuguese',
+    // 'Chinese',
+    // 'Japanese',
+    // 'Korean',
+    'More coming soon!',
   ];
 
   return (
@@ -35,7 +36,11 @@ const Languages = ({ preferredLanguage, setPreferredLanguage }) => {
           Select Language
         </option>
         {languages.map((language, index) => (
-          <option key={index} value={language}>
+          <option
+            key={index}
+            value={language}
+            disabled={language === 'More coming soon!'}
+          >
             {language}
           </option>
         ))}

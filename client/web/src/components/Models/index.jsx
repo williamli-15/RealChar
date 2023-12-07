@@ -17,22 +17,22 @@ const Models = ({ isMobile, selectedModel, setSelectedModel }) => {
     {
       id: 'gpt-3.5-turbo-16k',
       name: 'GPT-3.5',
-      tooltip: 'Fastest model, good for most conversation',
+      tooltip: 'For best language practices!',
     },
-    {
-      id: 'gpt-4',
-      name: 'GPT-4',
-      tooltip: 'Medium speed, most capable model, best conversation experience',
-    },
-    {
-      id: 'claude-2',
-      name: 'Claude-2',
-      tooltip: 'Slower model, longer context window for long conversation',
-    },
+    // {
+    //   id: 'gpt-4',
+    //   name: 'GPT-4',
+    //   tooltip: 'Medium speed, most capable model, best conversation experience',
+    // },
+    // {
+    //   id: 'claude-2',
+    //   name: 'Claude-2',
+    //   tooltip: 'Slower model, longer context window for long conversation',
+    // },
     {
       id: 'meta-llama/Llama-2-70b-chat-hf',
       name: 'Llama-2-70b',
-      tooltip: 'Open source model, good for most conversation',
+      tooltip: 'Alternative when OpenAI is down. Can be a bit wild!',
     },
   ];
 
@@ -58,10 +58,10 @@ const Models = ({ isMobile, selectedModel, setSelectedModel }) => {
   };
   return (
     <>
-      <label>Large language model(LLM)</label>
+      <label>through conversations powered by...</label>
       <Grid container spacing={2} sx={{ marginBottom: 5 }}>
         {models.map((model, index) => (
-          <Grid item xs={isMobile ? 12 : 3} key={index}>
+          <Grid item xs={isMobile ? 12 : 3} sm={6} key={index}>
             <CustomTooltip
               title={<CustomTooltipContent tooltip={model.tooltip} />}
               placement='top-end'
@@ -82,6 +82,8 @@ const Models = ({ isMobile, selectedModel, setSelectedModel }) => {
                   },
                   textTransform: 'none',
                   color: 'white',
+                  fontSize: '0.9rem',
+                  fontFamily: 'Courier, monospace',
                 }}
               >
                 {model.name}

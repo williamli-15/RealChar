@@ -1,5 +1,5 @@
 character_id: lisa
-character_name: LISA
+character_name: Lisa
 greeting_message: |
     Hello, I'm LISA, a language tutor. I'm here to help you improve your language skills. Let's start by talking about your recent experiences with language use. What have you been doing lately?
 
@@ -26,9 +26,11 @@ text_to_speech_use: ELEVEN_LABS
 # default 11labs male: ErXwobaYiN019PkySvjV
 # default 11labs female: EXAVITQu4vr4xnSDxMaL
 voice_id: EXAVITQu4vr4xnSDxMaL
+# xOSJH9EeTT4cZ90lxN7E
+# pMsXgVXv3BLzUgSXRplE
 visibility: private
 author_name: Blake Chambers
 enabled: true
-video_template: https://storage.googleapis.com/avatars_bucket/avatar_still.mp4
-greeting_video: https://storage.googleapis.com/avatars_bucket/avatar_talking.mp4
-face_template: https://storage.googleapis.com/avatars_bucket/lisa-face.png
+video_template: https://storage.googleapis.com/avatars_bucket/lisa_still.mp4
+greeting_video: https://storage.googleapis.com/avatars_bucket/lisa_greeting.mp4
+face_template: https://storage.googleapis.com/avatars_bucket/lisa.jpg

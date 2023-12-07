@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import Feedback from '../Feedback';
 
 const TextView = ({
+  isRecording,
   selectedCharacter,
   send,
   isPlaying,
@@ -137,8 +138,16 @@ const TextView = ({
         ref={chatWindowRef}
         value={textAreaValue}
       ></textarea>
+      <div className={`sound-wave ${isRecording ? '' : 'stop-animation'}`}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-      <Feedback messageId={messageId} token={token} />
+      {/* <Feedback messageId={messageId} token={token} />
 
       <div className='input-container'>
         <div className='message-input-container'>
@@ -203,7 +212,7 @@ const TextView = ({
             window.open(`/shared?session_id=${sessionId}`, '_blank')
           }
         />
-      </div>
+      </div> */}
     </div>
   );
 };

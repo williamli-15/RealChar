@@ -86,7 +86,7 @@ class CatalogManager(Singleton):
             greeting_video=yaml_content.get("greeting_video"),
             face_template=yaml_content.get("face_template"),
         )
-
+        
         if "avatar_id" in yaml_content:
             self.characters[character_id].avatar_id = yaml_content["avatar_id"]
         if "author_name" in yaml_content:
@@ -112,7 +112,8 @@ class CatalogManager(Singleton):
         for directory in directories:
             character_name = self.load_character(directory)
             if character_name and overwrite:
-                self.load_data(character_name, directory / 'data')
+                # self.load_data(character_name, directory / 'data')
+                pass
         #         logger.info('Loaded data for character: ' + character_name)
         # logger.info(
         #     f'Loaded {len(self.characters)} characters: IDs {list(self.characters.keys())}')
@@ -169,17 +170,17 @@ class CatalogManager(Singleton):
         # logger.info('Started loading characters from SQL database')
         character_models = self.sql_db.query(CharacterModel).all()
 
-        # I'm not using the database for characters, so I want to limit how many times I have to load it
-        # If no characters are in the database, then don't delete any characters
-        if len(character_models) == 0:
-            logger.info('No characters in sql database')
+        # # I'm not using the database for characters, so I want to limit how many times I have to load it
+        # # If no characters are in the database, then don't delete any characters
+        # if len(character_models) == 0:
+        #     logger.info('No characters in sql database')
 
-            # On the third check, if there are still no characters, then stop checking
-            self.sql_load_interval = self.sql_load_interval * 2
-            if self.sql_load_interval > 3600:
-                logger.info('No characters in sql database after 3 checks, stopping load sql db loop')
-                self.stop_load_sql_db_loop()
-            return
+        #     # On the third check, if there are still no characters, then stop checking
+        #     self.sql_load_interval = self.sql_load_interval * 2
+        #     if self.sql_load_interval > 3600:
+        #         logger.info('No characters in sql database after 3 checks, stopping load sql db loop')
+        #         self.stop_load_sql_db_loop()
+        #     return
         
         with self.sql_load_lock.gen_wlock():
             # delete all characters with location == 'database'

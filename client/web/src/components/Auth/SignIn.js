@@ -70,13 +70,15 @@ const SignIn = ({ isLoggedIn, setToken }) => {
 
   const signIn = async e => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      await signInWithGoogle(isLoggedIn, setToken);
-    } catch (error) {
-      console.error('Error during sign in:', error);
-    }
-    setIsLoading(false);
+    // Temporarily disabling sign-in functionality
+    console.log('Sign-in is temporarily disabled');
+    // setIsLoading(true);
+    // try {
+    //   await signInWithGoogle(isLoggedIn, setToken);
+    // } catch (error) {
+    //   console.error('Error during sign in:', error);
+    // }
+    // setIsLoading(false);
   };
 
   return (

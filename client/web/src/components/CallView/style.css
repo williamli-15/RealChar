@@ -2,25 +2,25 @@
   0% {
     height: 10px;
     trnsform: translateY(0px);
-    background: #1f4fcc;
+    background: #808080; /* Steel Gray */
   }
   25% {
     height: 40px;
     trnsform: translateY(-5px);
     scaley: 1.7;
-    background: #6785d3;
+    background: #a9a9a9; /* Dark Silver Gray */
   }
   50% {
     height: 10px;
     trnsform: translateY(0px);
     scaley: 1.7;
-    background: #c2d3ff;
+    background: #c0c0c0; /* Light Silver Gray */
   }
   100% {
     height: 10px;
     trnsform: translateY(0px);
     scaley: 1.7;
-    background: fixed #eef3ff;
+    background: fixed #d3d3d3;
   }
 }
 
@@ -36,7 +36,7 @@
   width: 10px;
   display: block;
   border-radius: 8px;
-  background: #bec5d9;
+  background: #d3d3d3;
   animation: audio-wave 2.2s infinite ease-in-out;
 }
 .stop-animation span {
@@ -100,7 +100,7 @@
   padding: 20px;
 }
 
-.recording-status {
+.status-message {
   font-size: 1.2em;
   color: #333;
   text-align: center;

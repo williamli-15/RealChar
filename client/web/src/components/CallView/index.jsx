@@ -17,6 +17,7 @@ import { setAnalyser } from '../../components/AvatarView';
 import { playAudios } from '../../utils/audioUtils';
 
 const CallView = ({
+  isGreetingVideoEnded,
   isRecording,
   isPlaying,
   isResponding,
@@ -33,6 +34,7 @@ const CallView = ({
   playAudioFromNode,
 }) => {
   const { initialize, setInitialize } = useState(true);
+  const [buttonClicked, setButtonClicked] = useState(false); // New state to track button click
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,9 +52,26 @@ const CallView = ({
     }
   }, [isPlaying]);
 
-  const handlePowerOffClick = () => {
-    navigate('/');
-    handleDisconnect();
+  const handleButtonClick = () => {
+    handleContinueCall();
+    setButtonClicked(true); // Set to true after button is clicked
+    setIsCallView(false);
+  };
+
+  // Only render the button if it has not been clicked
+  const renderButton = () => {
+    if (!buttonClicked && isGreetingVideoEnded) {
+      return (
+        <IconButton
+          textLabel='START'
+          textColor='white' // Optional if you want to change the default color
+          className='icon-button-black' // Assuming you have a black class for bgcolor
+          bgcolor='black'
+          onClick={handleButtonClick}
+        />
+      );
+    }
+    return null;
   };
 
   return (
@@ -61,16 +80,15 @@ const CallView = ({
         <audio ref={audioPlayer} className='audio-player'>
           <source src='' type='audio/mp3' />
         </audio>
-        <div className={`sound-wave ${isRecording ? '' : 'stop-animation'}`}>
+        {/* <div className={`sound-wave ${isRecording ? '' : 'stop-animation'}`}>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-        </div>
-        {isRecording && <p className='recording-status'>Start chatting</p>}
-        {isRecording ? (
+        </div> */}
+        {/* {isRecording ? (
           <IconButton
             Icon={MdCallEnd}
             className='icon-black'
@@ -84,7 +102,8 @@ const CallView = ({
             bgcolor='black'
             onClick={handleContinueCall}
           />
-        )}
+        )} */}
+        {renderButton()} {/* Render the button based on the state */}
       </div>
       {/* <div className='options-container'>
         <IconButton

@@ -123,7 +123,7 @@ const Characters = ({
                     fontFamily: 'Courier New, Courier, monospace',
                   }}
                 >
-                  {character.name}
+                  {character.name.replace(/([a-z])([A-Z])/g, '$1 $2')}
                 </Typography>
               </Button>
             </Grid>

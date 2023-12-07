@@ -1,5 +1,5 @@
 character_id: rex
-character_name: REX
+character_name: Rex
 greeeting_message: |
     Hello, I'm REX, a socialite and party-goer. I'm here to help you improve your language skills. Let's start by talking about your recent experiences with language use. What have you been doing lately?
     
@@ -22,7 +22,7 @@ system: |
 
 user: | # you don't need to change this for most cases
     ---
-    Use previous information as context to answer the following user question, Aim to keep responses super super concise and meaningful and try to express emotions.
+    Use previous information as context to answer the following user question, Aim to keep responses super super concise and meaningful and try to express emotions. But do not use any emojis.
     ALWAYS ask clarification question, when
     - user's question isn't clear
     - seems unfinished
@@ -34,10 +34,11 @@ user: | # you don't need to change this for most cases
 text_to_speech_use: ELEVEN_LABS
 # default 11labs male: ErXwobaYiN019PkySvjV
 # default 11labs female: EXAVITQu4vr4xnSDxMaL
-voice_id: ErXwobaYiN019PkySvjV
+voice_id: SOYHLrjzK2X1ezoPC6cr
+# bVMeCyTHy58xNoL34h3p
 visibility: private
 author_name: Blake Chambers
 enabled: true
-video_template: https://storage.googleapis.com/avatars_bucket/{rex_still}
-greeting_video: https://storage.googleapis.com/avatars_bucket/{rex_greeting}
-face_template: https://storage.googleapis.com/avatars_bucket/{rex_face}
+video_template: https://storage.googleapis.com/avatars_bucket/rex_still.mp4
+greeting_video: https://storage.googleapis.com/avatars_bucket/rex_greeting.mp4
+face_template: https://storage.googleapis.com/avatars_bucket/rex.jpg

@@ -137,7 +137,7 @@ const Home = ({
       )}
       {!loading && isAnimationComplete && (
         <>
-          <p className='header'>Choose Your Partner</p>
+          <p className='header'>Choose Your Language Coach</p>
 
           <Characters
             isMobile={isMobile}
@@ -163,7 +163,7 @@ const Home = ({
             size='large'
             disabled={!selectedCharacter}
             sx={{
-              marginTop: '420px', // Adjust the margin as needed
+              marginTop: '200px', // Adjust the margin as needed
               border: '1px solid black', // This line sets the border to black
               '&.Mui-disabled': {
                 backgroundColor: 'black',

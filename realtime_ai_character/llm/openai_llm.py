@@ -63,7 +63,8 @@ class OpenaiLlm(LLM):
                     metadata: dict = None,
                     *args, **kwargs) -> str:
         # 1. Generate context
-        context = self._generate_context(user_input, character)
+        # context = self._generate_context(user_input, character)
+        context = ""
         #logger.debug(f"Ignoring generated context: {context}")
         memory_context = self._generate_memory_context(user_id='', query=user_input)
         if memory_context:
@@ -93,13 +94,13 @@ class OpenaiLlm(LLM):
         logger.info(f'Response: {response}')
         return response.generations[0][0].text
 
-    def _generate_context(self, query, character: Character) -> str:
-        docs = self.db.similarity_search(query)
-        #docs = [d for d in docs if d.metadata['character_name'] == character.name]
-        logger.info(f'Found {len(docs)} documents')
+    # def _generate_context(self, query, character: Character) -> str:
+    #     docs = self.db.similarity_search(query)
+    #     #docs = [d for d in docs if d.metadata['character_name'] == character.name]
+    #     # logger.info(f'Found {len(docs)} documents')
 
-        context = '\n'.join([d.page_content for d in docs])
-        return context
+    #     context = '\n'.join([d.page_content for d in docs])
+    #     return context
 
     def _generate_memory_context(self, user_id: str, query: str) -> str:
         # Not implemented

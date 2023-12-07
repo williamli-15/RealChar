@@ -125,16 +125,16 @@ async def websocket_endpoint(websocket: WebSocket,
     # Default user_id to session_id. If auth is enabled and token is provided, use
     # the user_id from the token.
     user_id = str(session_id)
-    if os.getenv('USE_AUTH', ''):
-        # Do not allow anonymous users to use non-GPT3.5 model.
-        if not token and llm_model != 'gpt-3.5-turbo-16k':
-            await websocket.close(code=1008, reason="Unauthorized")
-            return
-        try:
-            user_id = await get_current_user(token)
-        except HTTPException:
-            await websocket.close(code=1008, reason="Unauthorized")
-            return
+    # if os.getenv('USE_AUTH', ''):
+    #     # Do not allow anonymous users to use non-GPT3.5 model.
+    #     if not token and llm_model != 'gpt-3.5-turbo-16k':
+    #         await websocket.close(code=1008, reason="Unauthorized")
+    #         return
+    #     try:
+    #         user_id = await get_current_user(token)
+    #     except HTTPException:
+    #         await websocket.close(code=1008, reason="Unauthorized")
+    #         return
     session_auth_result = await check_session_auth(session_id=session_id, user_id=user_id, db=db)
     if not session_auth_result.is_authenticated_user:
         logger.info(f'User #{user_id} is not authorized to access session {session_id}')
@@ -428,12 +428,10 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 # 2. Send transcript to client
                 await manager.send_message(
                     message=f'[+]You said: {transcript}', websocket=websocket)
-
                 # 3. stop the previous audio stream, if new transcript is received
                 await stop_audio()
 
                 previous_transcript = transcript
-
                 async def tts_task_done_call_back(response):
                     # Send response to client, [=] indicates the response is done
                     await manager.send_message(message='[=]',

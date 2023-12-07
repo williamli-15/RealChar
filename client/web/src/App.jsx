@@ -227,24 +227,34 @@ const App = () => {
   };
 
   // Handle Button Clicks
+  // const connect = async () => {
+  //   try {
+  //     // requires login if user wants to use gpt4 or claude.
+  //     if (selectedModel !== 'gpt-3.5-turbo-16k') {
+  //       if (isLoggedIn.current) {
+  //         connectSocketWithState();
+  //       } else {
+  //         signInWithGoogle(isLoggedIn, setToken).then(() => {
+  //           if (isLoggedIn.current) {
+  //             connectSocketWithState();
+  //           }
+  //         });
+  //       }
+  //     } else {
+  //       connectSocketWithState();
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during sign in or connect:', error);
+  //   }
+  // };
+
+  // Handle Button Clicks.
+  // Connect the socket regardless of the selected model or login status
   const connect = async () => {
     try {
-      // requires login if user wants to use gpt4 or claude.
-      if (selectedModel !== 'gpt-3.5-turbo-16k') {
-        if (isLoggedIn.current) {
-          connectSocketWithState();
-        } else {
-          signInWithGoogle(isLoggedIn, setToken).then(() => {
-            if (isLoggedIn.current) {
-              connectSocketWithState();
-            }
-          });
-        }
-      } else {
-        connectSocketWithState();
-      }
+      connectSocketWithState();
     } catch (error) {
-      console.error('Error during sign in or connect:', error);
+      console.error('Error during connect:', error);
     }
   };
 

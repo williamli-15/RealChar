@@ -52,6 +52,12 @@
     background-color 0.3s ease-in-out;
 }
 
+.icon-text {
+  font-family: 'Courier', monospace; /* Set the font to Courier */
+  font-size: 14px; /* Adjust the font size as needed */
+  /* Other styling as needed */
+}
+
 .default {
   background-color: #bccffe1a;
 }
