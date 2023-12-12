@@ -118,11 +118,11 @@ const Settings = ({
         setSelectedDevice={setSelectedDevice}
       /> */}
 
-      <Models
+      {/* <Models
         isMobile={isMobile}
         selectedModel={selectedModel}
         setSelectedModel={setSelectedModel}
-      />
+      /> */}
 
       {/* <AdvancedOptions
         isLoggedIn={isLoggedIn}
