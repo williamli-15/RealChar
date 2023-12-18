@@ -1,13 +1,14 @@
 .chat-window {
-  background-color: black; /* Set the background color to black */
+  background: transparent;
   color: white;
   font-size: 17px;
   font-family: "Courier New", Courier, monospace;
   border: none;
   resize: none;
-  width: 240%;
+  width: 215%;
   height: 10vh;
-  margin-top: -60px; /* Adjust this value to move it up */
+  margin-top: -120px; /* Adjust this value to move it up */
+  margin-left: 20px; /* Adjust this value to move it to the right */
   z-index: 999; /* Use a high value to bring it to the front */
   padding: 5px 10px; /* Add padding to control the space around text */
   display: inline-block; /* Make the chat window inline */
@@ -19,6 +20,13 @@
   width: 0; /* Hide the scrollbar for WebKit browsers (Chrome, Safari) */
 }
 
+.white-text {
+  color: white;
+}
+
+.black-text {
+  color: black;
+}
 
 .input-container {
   display: flex;

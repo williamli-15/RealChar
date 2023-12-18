@@ -17,9 +17,8 @@ p {
 
 .typing-container {
   width: 100%; /* Ensure the container is the full width of its parent */
-  text-align: left; /* Align text to the left */
   margin-top: 130px; /* Adjust the top margin to move it down */
-  margin-left: 550px; /* Adjust the left margin to move it to the right */
+  margin-left: 600px; /* Adjust the left margin to move it to the right */
 }
 
 .typing-text {

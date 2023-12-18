@@ -48,6 +48,7 @@ const TextView = ({
   const [keyboard, SetKeyboard] = useState(true);
   const chatWindowRef = useRef(null);
   const talking = useRef(false);
+  const [colorClass, setColorClass] = useState('white-text'); // default class
 
   // always show the latest chat log
   useEffect(() => {
@@ -76,6 +77,18 @@ const TextView = ({
       );
     }
   }, [isThinking, textAreaValue]);
+
+  useEffect(() => {
+    // Array of character names for which the text should be black
+    const blackTextCharacters = [
+      'ProfessorAlexanderKnight',
+      // Add more character names as needed
+    ];
+    const newColorClass = blackTextCharacters.includes(selectedCharacter.name)
+      ? 'black-text'
+      : 'white-text';
+    setColorClass(newColorClass);
+  }, [selectedCharacter.name]);
 
   const handlePowerOffClick = () => {
     navigate('/');
@@ -132,7 +145,7 @@ const TextView = ({
   return (
     <div className='text-screen'>
       <textarea
-        className='chat-window'
+        className={`chat-window ${colorClass}`}
         readOnly
         draggable='false'
         ref={chatWindowRef}
