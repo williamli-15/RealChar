@@ -14,6 +14,7 @@
   display: inline-block; /* Make the chat window inline */
   scrollbar-width: none; /* Hide the scrollbar for Firefox */
   -ms-overflow-style: none; /* Hide the scrollbar for Edge/IE */
+  overflow-y: hidden; /* Hide vertical scrollbar */
 }
 
 .chat-window::-webkit-scrollbar {

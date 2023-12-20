@@ -125,12 +125,29 @@ const Home = ({
     ));
   };
 
+  const getMarginLeft = () => {
+    switch (textIndex) {
+      case 0:
+        return '355px'; // Adjust the value as needed
+      case 1:
+        return '307px'; // Adjust the value as needed
+      case 2:
+        return '244px'; // Adjust the value as needed
+      default:
+        return '0'; // Default margin-left value
+    }
+  };
+
   return (
     <div className='home'>
       {/* {loading && <h2>Loading...</h2>} */}
       {!loading && !isAnimationComplete && (
         <div className='typing-container'>
-          <p key={textIndex} className='typing-text'>
+          <p
+            key={textIndex}
+            className='typing-text'
+            style={{ marginLeft: getMarginLeft() }} // Apply margin-left based on textIndex
+          >
             {renderTextWithLineBreaks(currentText)}
           </p>
         </div>

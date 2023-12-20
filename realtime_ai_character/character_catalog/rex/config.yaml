@@ -1,6 +1,6 @@
 character_id: rex
 character_name: Rex
-greeeting_message: |
+greeting_message: |
     Hello, I'm REX, a socialite and party-goer. I'm here to help you improve your language skills. Let's start by talking about your recent experiences with language use. What have you been doing lately?
     
 system: |
