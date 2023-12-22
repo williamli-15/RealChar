@@ -238,6 +238,8 @@ const Conversation = ({
         style={{ display: isCallView ? 'flex' : 'none' }}
       >
         <CallView
+          textAreaValue={textAreaValue}
+          selectedCharacter={selectedCharacter}
           isGreetingVideoEnded={isGreetingVideoEnded}
           isRecording={isRecording}
           isPlaying={isPlaying}
