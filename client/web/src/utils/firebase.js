@@ -5,13 +5,13 @@ import { getAuth } from 'firebase/auth';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyAVqhwbdB8I56HAMVVlgJKZcfrBkKI2AhQ',
-  authDomain: 'assistly-kubernetes.firebaseapp.com',
-  projectId: 'assistly-kubernetes',
-  storageBucket: 'assistly-kubernetes.appspot.com',
-  messagingSenderId: '806733379891',
-  appId: '1:806733379891:web:48bf124c0d9b90298e6646',
-  measurementId: 'G-XVWF8XDKS5',
+  apiKey: 'AIzaSyBWlJMIT6WEVtyxjGnE8EJYsk6DhmqJnLw',
+  authDomain: 'chia-signup.firebaseapp.com',
+  projectId: 'chia-signup',
+  storageBucket: 'chia-signup.appspot.com',
+  messagingSenderId: '962971497026',
+  appId: '1:962971497026:web:58e2b740a33e7ed363f3db',
+  measurementId: 'G-GE3PRTS1W8',
 };
 
 // Initialize Firebase

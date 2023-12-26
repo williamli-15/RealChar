@@ -92,3 +92,106 @@
 }
 
 /*only 3 importants, the control , the base color , the hover color , and the logout hover color */
+
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  max-width: 500px;
+  font-family: Courier, monospace;
+}
+.name-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ensure this container is full width */
+  font-family: Courier, monospace; /* Set the font to Courier */
+}
+
+.name-field label {
+  text-align: center;
+  width: 200px; /* This should match the width of your input field and buttons */
+  color: black;
+  margin-bottom: 5px;
+}
+
+.name-field input {
+  width: 200px; /* Match the width of your buttons */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-family: Courier, monospace !important; /* Ensuring font family is Courier */
+  color: black !important; /* Ensuring text color is black */
+  -webkit-text-fill-color: black; /* Override for Safari */
+}
+
+/* Ensure the browser applies the style for placeholder */
+.name-field input::placeholder {
+  font-family: Courier, monospace;
+  color: black;
+  opacity: 1; /* Full opacity */
+}
+
+/* Ensure the browser applies the style when the input is focused */
+.name-field input:focus {
+  font-family: Courier, monospace;
+  color: black;
+}
+
+/* Style the placeholder for Mozilla Firefox */
+.name-field input::-moz-placeholder {
+  font-family: Courier, monospace;
+  color: black;
+  opacity: 1;
+}
+
+/* Style the placeholder for Internet Explorer */
+.name-field input:-ms-input-placeholder {
+  font-family: Courier, monospace;
+  color: black;
+}
+
+/* Style the placeholder for Microsoft Edge */
+.name-field input::-ms-input-placeholder {
+  font-family: Courier, monospace;
+  color: black;
+}
+
+
+/* Adjust the button styles here as well */
+.google-btn, .next-button button {
+  width: 240px;
+  font-family: Courier, monospace;
+  color: black;
+}
+
+/* Adjust the Google button size */
+.google-btn {
+  margin-top: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  outline: none;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Re-adjust the image size within the Google button if necessary */
+.google-btn img {
+  width: 20px; /* Adjust as needed */
+  margin-right: 8px;
+}
+
+/* Center the Google button */
+.auth-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

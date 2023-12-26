@@ -35,7 +35,7 @@ const Header = ({ user, isLoggedIn, setToken, handleDisconnect }) => (
         },
       }}
     >
-      {user ? (
+      {/* {user ? (
         <SignOut
           isLoggedIn={isLoggedIn}
           user={user}
@@ -43,7 +43,7 @@ const Header = ({ user, isLoggedIn, setToken, handleDisconnect }) => (
         />
       ) : (
         <SignIn isLoggedIn={isLoggedIn} setToken={setToken} />
-      )}
+      )} */}
     </Navbar.Content>
   </Navbar>
 );

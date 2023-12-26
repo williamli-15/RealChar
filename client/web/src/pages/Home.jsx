@@ -141,7 +141,7 @@ const Home = ({
   return (
     <div className='home'>
       {/* {loading && <h2>Loading...</h2>} */}
-      {!loading && !isAnimationComplete && (
+      {/* {!loading && !isAnimationComplete && (
         <div className='typing-container'>
           <p
             key={textIndex}
@@ -151,60 +151,60 @@ const Home = ({
             {renderTextWithLineBreaks(currentText)}
           </p>
         </div>
-      )}
-      {!loading && isAnimationComplete && (
-        <>
-          <p className='header'>Choose Your Language Coach</p>
+      )} */}
+      {/* {!loading && isAnimationComplete && ( */}
+      {/* <> */}
+      <p className='header'>Choose Your Language Coach</p>
 
-          <Characters
-            isMobile={isMobile}
-            characterGroups={characterGroups}
-            selectedCharacter={selectedCharacter}
-            setSelectedCharacter={setSelectedCharacter}
-            isPlaying={isPlaying}
-            characterConfirmed={characterConfirmed}
-          />
-          {/*<Button*/}
-          {/*  variant='contained'*/}
-          {/*  color='primary'*/}
-          {/*  onClick={handleCreateCharacter}*/}
-          {/*  sx={{ marginBottom: '20px' }}*/}
-          {/*>*/}
-          {/*  Create Your Character*/}
-          {/*</Button>*/}
+      <Characters
+        isMobile={isMobile}
+        characterGroups={characterGroups}
+        selectedCharacter={selectedCharacter}
+        setSelectedCharacter={setSelectedCharacter}
+        isPlaying={isPlaying}
+        characterConfirmed={characterConfirmed}
+      />
+      {/*<Button*/}
+      {/*  variant='contained'*/}
+      {/*  color='primary'*/}
+      {/*  onClick={handleCreateCharacter}*/}
+      {/*  sx={{ marginBottom: '20px' }}*/}
+      {/*>*/}
+      {/*  Create Your Character*/}
+      {/*</Button>*/}
 
-          <Button
-            variant='contained'
-            onClick={handleNextClick}
-            // fullWidth
-            size='large'
-            disabled={!selectedCharacter}
-            sx={{
-              marginTop: '200px', // Adjust the margin as needed
-              border: '1px solid black', // This line sets the border to black
-              '&.Mui-disabled': {
-                backgroundColor: 'black',
-                color: 'white',
-              },
-              '&:hover': {
-                backgroundColor: 'white', // Keeps the button white on hover
-              },
-              '&:active': {
-                backgroundColor: 'black', // Changes the background color to black on click
-                color: 'white', // Changes the text color to white on click
-              },
-              textTransform: 'none',
-              width: '200px', // Adjust the width as needed
-              fontFamily: 'Courier, monospace', // Set the font to Courier
-              borderRadius: '10px', // Adjust the radius to make it more round
-              backgroundColor: 'white',
-              color: 'black',
-            }}
-          >
-            NEXT
-          </Button>
-        </>
-      )}
+      <Button
+        variant='contained'
+        onClick={handleNextClick}
+        // fullWidth
+        size='large'
+        disabled={!selectedCharacter}
+        sx={{
+          marginTop: '200px', // Adjust the margin as needed
+          border: '1px solid black', // This line sets the border to black
+          '&.Mui-disabled': {
+            backgroundColor: 'black',
+            color: 'white',
+          },
+          '&:hover': {
+            backgroundColor: 'white', // Keeps the button white on hover
+          },
+          '&:active': {
+            backgroundColor: 'black', // Changes the background color to black on click
+            color: 'white', // Changes the text color to white on click
+          },
+          textTransform: 'none',
+          width: '200px', // Adjust the width as needed
+          fontFamily: 'Courier, monospace', // Set the font to Courier
+          borderRadius: '10px', // Adjust the radius to make it more round
+          backgroundColor: 'white',
+          color: 'black',
+        }}
+      >
+        NEXT
+      </Button>
+      {/* </> */}
+      {/* )} */}
     </div>
   );
 };
