@@ -129,7 +129,7 @@ const App = () => {
       } else if (message.startsWith('[+]You said: ')) {
         // [+] indicates the transcription is done. stop playing audio
         let msg = message.split('[+]You said: ');
-        setTextAreaValue(prevState => prevState + `\nYou> ${msg[1]}\n`);
+        // setTextAreaValue(prevState => prevState + `\nYou> ${msg[1]}\n`);
         stopAudioPlayback();
       } else if (
         message.startsWith('[=]' || message.match(/\[=([a-zA-Z0-9]+)\]/))

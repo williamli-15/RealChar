@@ -92,6 +92,19 @@ const CallView = ({
 
   // (Scrolling ver.) Adjusting the Typing Effect with Scrolling
   useEffect(() => {
+    // Find the index of the last occurrence of 'selectedCharacter.name>' plus its length
+    const nameIndex = textAreaValue.lastIndexOf(`${selectedCharacter.name}>`);
+    const endIndex = nameIndex + `${selectedCharacter.name}>`.length;
+
+    // Determine if the new text after 'selectedCharacter.name>' should be paused
+    const shouldPause =
+      nameIndex >= 0 && isRecording && currentIndex >= endIndex;
+
+    if (shouldPause) {
+      // Pause typing if new text should be paused
+      return;
+    }
+
     if (currentIndex < textAreaValue.length - 3) {
       const timer = setTimeout(() => {
         // setDisplayedText(textAreaValue.slice(0, currentIndex + 1));
@@ -100,7 +113,10 @@ const CallView = ({
         let currentText = textAreaValue.slice(0, currentIndex + 1);
 
         // Add a blank line to the current text
-        currentText += '\n';
+        // Only add a newline if not at the end of the text
+        if (currentIndex < textAreaValue.length - 1) {
+          currentText += '\n';
+        }
 
         // Set the text with the added blank line
         setDisplayedText(currentText);
@@ -123,7 +139,7 @@ const CallView = ({
       // Trigger smooth scroll after typing is done
       smoothScrollToBottom(chatWindowRef.current, 50);
     }
-  }, [currentIndex, textAreaValue]);
+  }, [currentIndex, textAreaValue, isRecording, selectedCharacter.name]);
 
   //   // Check if the textarea is almost filled and start scrolling
   //   if (
