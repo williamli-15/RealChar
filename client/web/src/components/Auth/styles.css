@@ -111,10 +111,11 @@
 }
 
 .name-field label {
-  text-align: center;
   width: 200px; /* This should match the width of your input field and buttons */
   color: black;
   margin-bottom: 5px;
+  margin-left: -40px;
+  font-weight: bold;
 }
 
 .name-field input {

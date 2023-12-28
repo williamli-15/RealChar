@@ -68,7 +68,8 @@ class AsyncCallbackAudioHandler(AsyncCallbackHandler):
         try:
             timer.log("LLM First Token", lambda: timer.start("LLM First Sentence"))
             if (
-                not self.is_reply and ">" in token
+                # not self.is_reply and ">" in token
+                not self.is_reply
             ):  # small models might not give ">" (e.g. llama2-7b gives ">:" as a token)
                 self.is_reply = True
             elif self.is_reply:

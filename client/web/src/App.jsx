@@ -12,6 +12,7 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { signInWithGoogle } from './components/Auth/SignIn';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
 import Settings from './pages/Settings';
@@ -25,6 +26,7 @@ import CharDelete from './pages/CharDelete';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Support from './pages/Support';
+import GreetingVideo from './pages/GreetingVideo';
 
 // utils
 import auth from './utils/firebase';
@@ -344,6 +346,7 @@ const App = () => {
 
         <Routes>
           <Route path='/' element={<WelcomeAnimation />} />
+          <Route path='/greeting-video' element={<GreetingVideo />} />
           <Route
             path='/sign-in'
             element={<SignInPage isLoggedIn={isLoggedIn} setToken={setToken} />}
@@ -351,19 +354,21 @@ const App = () => {
           <Route
             path='/select-character'
             element={
-              <Home
-                isMobile={isMobile}
-                selectedCharacter={selectedCharacter}
-                setSelectedCharacter={setSelectedCharacter}
-                isPlaying={isPlaying}
-                characterGroups={characterGroups}
-                setCharacterGroups={setCharacterGroups}
-                setCharacterConfirmed={setCharacterConfirmed}
-                characterConfirmed={characterConfirmed}
-                token={token}
-                setToken={setToken}
-                isLoggedIn={isLoggedIn}
-              />
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Home
+                  isMobile={isMobile}
+                  selectedCharacter={selectedCharacter}
+                  setSelectedCharacter={setSelectedCharacter}
+                  isPlaying={isPlaying}
+                  characterGroups={characterGroups}
+                  setCharacterGroups={setCharacterGroups}
+                  setCharacterConfirmed={setCharacterConfirmed}
+                  characterConfirmed={characterConfirmed}
+                  token={token}
+                  setToken={setToken}
+                  isLoggedIn={isLoggedIn}
+                />
+              </ProtectedRoute>
             }
           />
           <Route

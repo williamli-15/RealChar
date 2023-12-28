@@ -23,7 +23,7 @@ const SignInPage = ({ isLoggedIn, setToken }) => {
 
   return (
     <div className='home'>
-      <h1>Sign In to Continue</h1>
+      <h1></h1>
       <SignIn
         isLoggedIn={isLoggedIn}
         setToken={setToken}

@@ -99,7 +99,7 @@ const SignIn = ({ isLoggedIn, setToken, onSignIn }) => {
         <input
           type='text'
           id='name'
-          placeholder='Enter your name'
+          placeholder=''
           value={name}
           onChange={e => setName(e.target.value)}
           disabled={isLoading}
@@ -140,6 +140,7 @@ const SignIn = ({ isLoggedIn, setToken, onSignIn }) => {
             borderRadius: '10px', // Adjust the radius to make it more round
             backgroundColor: 'white',
             color: 'black',
+            fontWeight: 'bold',
           }}
         >
           SUBMIT

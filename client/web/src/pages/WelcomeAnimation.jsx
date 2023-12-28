@@ -24,7 +24,7 @@ const WelcomeAnimation = () => {
           if (textIndex < texts.length - 1) {
             setTextIndex(textIndex + 1);
           } else {
-            navigate('/sign-in');
+            navigate('/greeting-video');
           }
         }, fadeDelay);
       }
