@@ -13,7 +13,7 @@ const GreetingVideo = () => {
 
   return (
     <div className='video-container'>
-      <video id='greetingVideo' width='100%' height='auto' autoPlay>
+      <video id='greetingVideo' width='100%' height='auto' autoPlay muted>
         <source
           src='https://storage.googleapis.com/avatars_bucket/signin.mp4'
           type='video/mp4'
