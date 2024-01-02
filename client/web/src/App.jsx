@@ -20,13 +20,12 @@ import Conversation from './pages/Conversation';
 import SharedConversation from './pages/SharedConversation';
 import Home from './pages/Home';
 import SignInPage from './pages/SignInPage';
-import WelcomeAnimation from './pages/WelcomeAnimation'; // import the new component
+import WelcomeAndGreeting from './pages/WelcomeAndGreeting'; // import the new component
 import CharCreate from './pages/CharCreate';
 import CharDelete from './pages/CharDelete';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Support from './pages/Support';
-import GreetingVideo from './pages/GreetingVideo';
 
 // utils
 import auth from './utils/firebase';
@@ -345,8 +344,7 @@ const App = () => {
         />
 
         <Routes>
-          <Route path='/' element={<WelcomeAnimation />} />
-          <Route path='/greeting-video' element={<GreetingVideo />} />
+          <Route path='/' element={<WelcomeAndGreeting />} />
           <Route
             path='/sign-in'
             element={<SignInPage isLoggedIn={isLoggedIn} setToken={setToken} />}
