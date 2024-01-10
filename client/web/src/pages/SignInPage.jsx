@@ -15,7 +15,7 @@ const SignInPage = ({ isLoggedIn, setToken }) => {
   // This function is called when the "Submit" button is clicked
   const handleSubmit = () => {
     if (isLoggedIn.current) {
-      navigate('/select-character');
+      navigate('/playback-rate');
     } else {
       // Optionally provide feedback to the user that they need to sign in with Google
     }

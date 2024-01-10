@@ -92,6 +92,12 @@ const Conversation = ({
       console.info('videoQueue pop: ', src);
       videoPlayer.current.loop = false;
       setVideoSource(src);
+
+      // Apply playback rate here
+      // const params = new URLSearchParams(window.location.search);
+      // const playbackRate = parseFloat(params.get('rate') || 1.0);
+      // videoPlayer.current.playbackRate = playbackRate;
+
       videoPlayer.current.play();
     }
   }, [isVideoPlaying]);
@@ -214,7 +220,13 @@ const Conversation = ({
               console.info('onLoadedMetadata: ', event);
               const beforeIsRecording = isRecording;
               handleStopCall();
-              const duration = event.target.duration;
+
+              // Apply playback rate here
+              const params = new URLSearchParams(window.location.search);
+              const playbackRate = parseFloat(params.get('rate') || 1.0);
+              event.target.playbackRate = playbackRate;
+
+              const duration = event.target.duration / playbackRate;
               setTimeout(() => {
                 if (beforeIsRecording) {
                   handleContinueCall();

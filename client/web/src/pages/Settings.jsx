@@ -67,6 +67,9 @@ const Settings = ({
   const handleStartClick = async () => {
     await connect();
 
+    const params = new URLSearchParams(window.location.search);
+    const rate = params.get('rate');
+
     // TODO(UI): Show loading animation
 
     const interval = setInterval(() => {
@@ -95,7 +98,9 @@ const Settings = ({
         '&useMultiOnParam=' +
         useMultiOn +
         '&useEchoCancellationParam=' +
-        useEchoCancellation
+        useEchoCancellation +
+        '&rate=' +
+        rate
     );
   };
 

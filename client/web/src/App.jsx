@@ -21,6 +21,7 @@ import SharedConversation from './pages/SharedConversation';
 import Home from './pages/Home';
 import SignInPage from './pages/SignInPage';
 import WelcomeAndGreeting from './pages/WelcomeAndGreeting'; // import the new component
+import PlaybackRateSelection from './pages/PlaybackRateSelection';
 import CharCreate from './pages/CharCreate';
 import CharDelete from './pages/CharDelete';
 import Privacy from './pages/Privacy';
@@ -349,6 +350,7 @@ const App = () => {
             path='/sign-in'
             element={<SignInPage isLoggedIn={isLoggedIn} setToken={setToken} />}
           />
+          <Route path='/playback-rate' element={<PlaybackRateSelection />} />
           <Route
             path='/select-character'
             element={

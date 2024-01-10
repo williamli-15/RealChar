@@ -95,7 +95,8 @@ const Home = ({
     const compressedCharacter = lz.compressToEncodedURIComponent(
       JSON.stringify(selectedCharacter)
     );
-    navigate('/settings?character=' + compressedCharacter);
+    const rate = new URLSearchParams(window.location.search).get('rate');
+    navigate(`/settings?character=${compressedCharacter}&rate=${rate}`);
   };
 
   const handleCreateCharacter = () => {
