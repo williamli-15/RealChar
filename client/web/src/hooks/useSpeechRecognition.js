@@ -95,15 +95,17 @@ const useSpeechRecognition = (
   };
 
   const startListening = () => {
-    if (!recognition.current) return;
+    if (!recognition.current || recognition.current.isRunning) return;
     console.log('start listening');
+    recognition.current.isRunning = true; // Add flag to indicate it's running
     recognition.current.start();
   };
 
   const stopListening = () => {
-    if (!recognition.current) return;
+    if (!recognition.current || !recognition.current.isRunning) return;
     console.log('stop listening');
     recognition.current.stop();
+    recognition.current.isRunning = false; // Reset flag when stopped
   };
 
   const closeRecognition = () => {
