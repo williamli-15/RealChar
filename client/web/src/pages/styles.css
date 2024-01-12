@@ -143,3 +143,29 @@ p {
 .video-container {
   margin-top: -200px; /* Adjust this value as needed */
 }
+
+.custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 15px; /* Can be your desired height */
+  border-radius: 5px;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px; /* Width of the thumb image */
+  height: 30px; /* Height of the thumb image */
+  background: url('/public/icon.png'); /* Path to your logo image */
+  cursor: pointer; /* Cursor on hover */
+  background-size: 100% 100%; /* Ensure the icon displays fully */
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 30px; /* Width of the thumb image */
+  height: 30px; /* Height of the thumb image */
+  background: url('/public/icon.png'); /* Path to your logo image */
+  cursor: pointer; /* Cursor on hover */
+  background-size: 100% 100%; /* Ensure the icon displays fully */
+}
