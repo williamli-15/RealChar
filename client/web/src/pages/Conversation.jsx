@@ -93,11 +93,6 @@ const Conversation = ({
       videoPlayer.current.loop = false;
       setVideoSource(src);
 
-      // Apply playback rate here
-      // const params = new URLSearchParams(window.location.search);
-      // const playbackRate = parseFloat(params.get('rate') || 1.0);
-      // videoPlayer.current.playbackRate = playbackRate;
-
       videoPlayer.current.play();
     }
   }, [isVideoPlaying]);
@@ -219,7 +214,9 @@ const Conversation = ({
             onLoadedMetadata={event => {
               console.info('onLoadedMetadata: ', event);
               const beforeIsRecording = isRecording;
-              handleStopCall();
+              if (videoSource !== videoTemplate) {
+                handleStopCall();
+              }
 
               // Apply playback rate here
               const params = new URLSearchParams(window.location.search);
