@@ -58,6 +58,8 @@ const Conversation = ({
   isVideoPlaying,
   setIsVideoPlaying,
 }) => {
+  // State to store the playback rate for adjusting subtitles in CallView
+  const [playbackRate, setPlaybackRate] = useState(1.0);
   const navigate = useNavigate();
   const { search } = useLocation();
   const {
@@ -221,6 +223,7 @@ const Conversation = ({
               // Apply playback rate here
               const params = new URLSearchParams(window.location.search);
               const playbackRate = parseFloat(params.get('rate') || 1.0);
+              setPlaybackRate(playbackRate); // Set the playback rate state
               event.target.playbackRate = playbackRate;
 
               const duration = event.target.duration / playbackRate;
@@ -264,6 +267,7 @@ const Conversation = ({
           setIsCallView={setIsCallView}
           sessionId={sessionId}
           playAudioFromNode={playAudioFromNode}
+          playbackRate={playbackRate} // Pass playbackRate as a prop
         />
       </div>
 

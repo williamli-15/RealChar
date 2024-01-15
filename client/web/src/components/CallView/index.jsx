@@ -34,6 +34,7 @@ const CallView = ({
   setIsCallView,
   sessionId,
   playAudioFromNode,
+  playbackRate,
 }) => {
   const chatWindowRef = useRef(null); // migrated from TextView
   const [colorClass, setColorClass] = useState('white-text'); // default class; migrated from TextView
@@ -83,6 +84,12 @@ const CallView = ({
     return (-c / 2) * (t * (t - 2) - 1) + b;
   };
 
+  // Define typing speeds for each character
+  const typingSpeeds = {
+    ProfessorAlexanderKnight: 58,
+    // Add more characters and their speeds as needed
+  };
+
   // (Scrolling ver.)  always show the latest chat log
   useEffect(() => {
     if (chatWindowRef.current) {
@@ -97,6 +104,12 @@ const CallView = ({
     if (isRecording) {
       return;
     }
+
+    // Retrieve the typing speed for the selected character
+    let characterTypingSpeed = typingSpeeds[selectedCharacter.name] || 45; // Default speed if character not found
+
+    // Adjust the typing speed based on the playback rate
+    characterTypingSpeed /= playbackRate;
 
     if (currentIndex < textAreaValue.length - 2) {
       const timer = setTimeout(() => {
@@ -125,14 +138,20 @@ const CallView = ({
         ) {
           smoothScrollToBottom(chatWindowRef.current, 50);
         }
-      }, 58); // Adjust typing speed here
+      }, characterTypingSpeed); // Adjust typing speed here
 
       return () => clearTimeout(timer);
     } else {
       // Trigger smooth scroll after typing is done
       smoothScrollToBottom(chatWindowRef.current, 50);
     }
-  }, [currentIndex, textAreaValue, isRecording]);
+  }, [
+    currentIndex,
+    textAreaValue,
+    isRecording,
+    selectedCharacter.name,
+    playbackRate,
+  ]); // Added selectedCharacter.name and playbackRate
 
   //   // Check if the textarea is almost filled and start scrolling
   //   if (

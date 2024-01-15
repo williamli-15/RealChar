@@ -29,7 +29,7 @@ const PlaybackRateSelection = () => {
     const leftPadding = padding.left;
     const rightPadding = padding.right;
 
-    return `linear-gradient(90deg, darkgrey ${leftPadding}px, transparent ${leftPadding}px, transparent ${rightPadding}px, black ${rightPadding}px)`;
+    return `linear-gradient(90deg, grey ${leftPadding}px, transparent ${leftPadding}px, transparent ${rightPadding}px, black ${rightPadding}px)`;
   };
 
   const handleRateChange = e => {
@@ -59,13 +59,23 @@ const PlaybackRateSelection = () => {
         className='custom-slider'
         style={sliderStyle}
       />
-      {/* <p>Current Rate: {playbackRate}</p> */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontFamily: 'Courier',
+        }}
+      >
+        <span style={{ color: 'black' }}>Slower</span>
+        <span style={{ color: 'black' }}>Faster</span>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           variant='contained'
           onClick={handleSubmit}
           sx={{
-            marginTop: '40px',
+            marginTop: '20px',
             border: '1px solid black', // This line sets the border to black
             '&.Mui-disabled': {
               backgroundColor: 'black',
