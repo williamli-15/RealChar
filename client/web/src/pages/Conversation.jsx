@@ -228,8 +228,10 @@ const Conversation = ({
 
               const duration = event.target.duration / playbackRate;
               setTimeout(() => {
-                if (beforeIsRecording) {
-                  handleContinueCall();
+                if (videoSource !== videoTemplate) {
+                  if (beforeIsRecording) {
+                    handleContinueCall();
+                  }
                 }
               }, duration * 1000);
             }}
