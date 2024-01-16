@@ -91,7 +91,7 @@ const CallView = ({
     AlexMorgan: 50,
     EmikoTanaka: 61,
     HarukaMichiyo: 61,
-    Lisa: 52,
+    Lisa: 50,
     ProfessorEliasRamirez: 63,
     // Add more characters and their speeds as needed
   };
@@ -112,7 +112,7 @@ const CallView = ({
     }
 
     // Retrieve the typing speed for the selected character
-    let characterTypingSpeed = typingSpeeds[selectedCharacter.name] || 52; // Default speed if character not found
+    let characterTypingSpeed = typingSpeeds[selectedCharacter.name] || 50; // Default speed if character not found
 
     // Adjust the typing speed based on the playback rate
     characterTypingSpeed /= playbackRate;
