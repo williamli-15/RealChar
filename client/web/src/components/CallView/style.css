@@ -108,6 +108,41 @@
 }
 
 /* migrated from TextView */
+.translated-chat-window {
+  background: transparent;
+  color: white;
+  font-size: 17px;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid black; /* Retained from your existing style */
+  resize: none;
+  width: 100%; /* Adjusted to fill the width of the translation-container */
+  height: 100px; /* Adjusted or retained based on your design needs */
+  margin-left: 0; /* Adjusted to align within the translation-container */
+  z-index: 999; /* Retained from your existing style */
+  padding: 20px 10px 5px; /* Increased top padding to 40px */
+  display: block; /* Adjusted to standard block layout within the container */
+  overflow-y: auto; /* Retained from your existing style */
+  border-radius: 10px; /* Rounded corners; adjust value as desired */
+}
+
+.translated-chat-window::-webkit-scrollbar {
+  width: 0; /* Hide the scrollbar for WebKit browsers (Chrome, Safari) */
+}
+
+.translation-container {
+  position: relative; /* New container for positioning */
+  width: 228%; /* Match the width of your translated-chat-window */
+  margin-top: 43px; /* Adjust based on your layout */
+  margin-left: -30px; /* Adjust based on your layout */
+}
+
+.language-select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10; /* Ensure it's above the textarea */
+  font-weight: bold; /* Make dropdown text bold */
+}
 
 .chat-window {
   background: transparent;

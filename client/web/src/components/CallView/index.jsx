@@ -15,6 +15,7 @@ import IconButton from '../Common/IconButton';
 import { setAnalyser } from '../../components/AvatarView';
 // utils
 import { playAudios } from '../../utils/audioUtils';
+import translateText from '../../utils/translate';
 
 const CallView = ({
   textAreaValue,
@@ -91,7 +92,7 @@ const CallView = ({
     AlexMorgan: 50,
     EmikoTanaka: 61,
     HarukaMichiyo: 61,
-    Lisa: 50,
+    Lisa: 49,
     ProfessorEliasRamirez: 63,
     // Add more characters and their speeds as needed
   };
@@ -112,7 +113,7 @@ const CallView = ({
     }
 
     // Retrieve the typing speed for the selected character
-    let characterTypingSpeed = typingSpeeds[selectedCharacter.name] || 50; // Default speed if character not found
+    let characterTypingSpeed = typingSpeeds[selectedCharacter.name] || 49; // Default speed if character not found
 
     // Adjust the typing speed based on the playback rate
     characterTypingSpeed /= playbackRate;
@@ -230,6 +231,46 @@ const CallView = ({
     return null;
   };
 
+  const [translatedText, setTranslatedText] = useState('');
+  const [lastTranslatedIndex, setLastTranslatedIndex] = useState(0);
+  const [languageCode, setLanguageCode] = useState('es'); // Default language code, can be changed by user
+  const prevIsRecordingRef = useRef(null);
+
+  // Function to handle language code change
+  const handleLanguageChange = event => {
+    setLanguageCode(event.target.value);
+  };
+
+  useEffect(() => {
+    const translate = async () => {
+      // Find the index just after the first occurrence of '\n\n'
+      const introTextEndIndex = textAreaValue.indexOf('\n\n') + 2;
+
+      // Ensure we start from the larger of introTextEndIndex and lastTranslatedIndex
+      const startTranslateIndex = Math.max(
+        introTextEndIndex,
+        lastTranslatedIndex
+      );
+
+      // Get the new portion of text to translate
+      const newTextToTranslate = textAreaValue.slice(startTranslateIndex);
+      console.log('Translating text:', newTextToTranslate);
+
+      const translated = await translateText(newTextToTranslate, languageCode);
+      console.log('Translated text:', translated);
+      setTranslatedText(translated);
+      setLastTranslatedIndex(textAreaValue.length);
+    };
+
+    // Check if isRecording changed from true to false
+    if (prevIsRecordingRef.current === true && isRecording === false) {
+      translate();
+    }
+
+    // Update the ref with the current value of isRecording
+    prevIsRecordingRef.current = isRecording;
+  }, [isRecording, textAreaValue, languageCode]);
+
   return (
     <div className='call-screen'>
       <div className='call-container'>
@@ -240,7 +281,31 @@ const CallView = ({
           ref={chatWindowRef}
           value={displayedText} // Use displayedText here
         ></textarea>
-        <div style={{ marginTop: '60px' }}></div> {/* Add space here */}
+        <div className='translation-container'>
+          <select
+            className='language-select'
+            value={languageCode}
+            onChange={handleLanguageChange}
+          >
+            <option value='es'>Español</option>
+            <option value='fr'>Français</option>
+            <option value='de'>Deutsch</option>
+            <option value='hi'>हिन्दी</option>
+            <option value='it'>Italiano</option>
+            <option value='pl'>Polski</option>
+            <option value='pt'>Português</option>
+            <option value='zh-CN'>简体中文</option>
+            <option value='ja'>日本語</option>
+            <option value='ko'>한국어</option>
+          </select>
+          <textarea
+            className={`translated-chat-window black-text`}
+            readOnly
+            draggable='false'
+            value={translatedText}
+          ></textarea>
+        </div>
+        {/* <div style={{ marginTop: '20px' }}></div> */}
         <audio ref={audioPlayer} className='audio-player'>
           <source src='' type='audio/mp3' />
         </audio>
