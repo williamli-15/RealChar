@@ -109,7 +109,7 @@
 
 /* migrated from TextView */
 .translated-chat-window {
-  background: transparent;
+  background: white;
   color: white;
   font-size: 17px;
   font-family: "Courier New", Courier, monospace;
