@@ -187,6 +187,7 @@ const CallView = ({
     // Array of character names for which the text should be black
     const blackTextCharacters = [
       'ProfessorAlexanderKnight',
+      'ProfessorEliasRamirez',
       // Add more character names as needed
     ];
     const newColorClass = blackTextCharacters.includes(selectedCharacter.name)
