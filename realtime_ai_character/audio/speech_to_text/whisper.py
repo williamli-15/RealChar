@@ -42,6 +42,7 @@ WHISPER_LANGUAGE_CODE_MAPPING = {
 class Whisper(Singleton, SpeechToText):
     def __init__(self, use="local"):
         super().__init__()
+        print(f"SPEECH_TO_TEXT_USE: {os.getenv('SPEECH_TO_TEXT_USE')}")
         if use == "local":
             device = 'cuda' if is_cuda_available() else 'cpu'
             logger.info(f"Loading [Local Whisper] model: [{config.model}]({device}) ...")
@@ -92,6 +93,18 @@ class Whisper(Singleton, SpeechToText):
         return text
 
     def _convert_webm_to_wav(self, webm_data, local=True):
+        # Firefox seems to send ogg/opus audio, so we'll check for that and convert it to wav
+        if webm_data[:4] == b"OggS":
+            webm_data = io.BytesIO(webm_data)
+            webm_audio = AudioSegment.from_ogg(webm_data)
+            wav_data = io.BytesIO()
+            webm_audio.export(wav_data, format="wav")
+            if local:
+                return wav_data
+            with sr.AudioFile(wav_data) as source:
+                audio = self.recognizer.record(source)
+            return audio
+        
         webm_audio = AudioSegment.from_file(io.BytesIO(webm_data), format="webm")
         wav_data = io.BytesIO()
         webm_audio.export(wav_data, format="wav")

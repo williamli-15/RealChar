@@ -20,8 +20,9 @@ ELEVEN_LABS_MULTILINGUAL_MODEL = 'eleven_multilingual_v2' if os.getenv(
     "ELEVEN_LABS_USE_V2",
     'false').lower() in ('true', '1') else 'eleven_multilingual_v1'
 TRY_TURBO = os.getenv("ELEVEN_LABS_TRY_TURBO", 'false').lower() in ('true', '1')
-STREAMING_TIMEOUT = os.getenv("ELEVEN_LABS_STREAMING_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
-GENERATION_TIMEOUT = os.getenv("ELEVEN_LABS_GENERATION_TIMEOUT", httpx.USE_CLIENT_DEFAULT)
+STREAMING_TIMEOUT = int(os.getenv("ELEVEN_LABS_STREAMING_TIMEOUT", httpx.USE_CLIENT_DEFAULT))
+GENERATION_TIMEOUT = int(os.getenv("ELEVEN_LABS_GENERATION_TIMEOUT", httpx.USE_CLIENT_DEFAULT))
+
 
 config = types.SimpleNamespace(**{
     'chunk_size': 1024,
@@ -83,12 +84,12 @@ class ElevenLabs(Singleton, TextToSpeech):
                 logger.error(
                     f"ElevenLabs returns response {response.status_code}")
             # original audio code
-            # async for chunk in response.aiter_bytes():
-            #     await asyncio.sleep(0.1)
-            #     if tts_event.is_set():
-            #         # stop streaming audio
-            #         break
-            #     await websocket.send_bytes(chunk)
+            async for chunk in response.aiter_bytes():
+                await asyncio.sleep(0.1)
+                if tts_event.is_set():
+                    # stop streaming audio
+                    break
+                await websocket.send_bytes(chunk)
             print('generated audio url: ', url)
             uuid_file_name = str(uuid.uuid4())
             file_path = os.path.join(AUDIO_TEMP_DIR, uuid_file_name)

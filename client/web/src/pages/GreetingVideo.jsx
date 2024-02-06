@@ -7,7 +7,7 @@ const GreetingVideo = () => {
   useEffect(() => {
     const video = document.getElementById('greetingVideo');
     video.onended = () => {
-      navigate('/sign-in');
+      navigate('/select-character');
     };
   }, [navigate]);
 

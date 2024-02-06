@@ -77,6 +77,18 @@ class Singleton:
     @classmethod
     def initialize(cls, *args, **kwargs):
         """ Static access method. """
+        if cls.__name__ == "Whisper":
+            # Look in the args for the use parameter
+            use = None
+            for arg in args:
+                if arg.startswith("use="):
+                    use = arg.split("=")[1]
+                    break
+            if use is None:
+                # Look in the kwargs for the use parameter
+                if "use" in kwargs:
+                    use = kwargs["use"]
+            print(f"Initializing {cls.__name__} with use={use}")
         if cls not in cls._instances:
             cls._instances[cls] = cls(*args, **kwargs)
 

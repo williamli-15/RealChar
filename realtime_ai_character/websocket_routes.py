@@ -214,8 +214,10 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
                 character_id = character_id_list[selection - 1]
 
         if character.tts:
+            print(f"Using character tts: {character.tts}")
             text_to_speech = get_text_to_speech(character.tts)
         else:
+            print(f"Using default tts: {default_text_to_speech}")
             text_to_speech = default_text_to_speech
 
         video_template = character.video_template
@@ -394,6 +396,13 @@ async def handle_receive(websocket: WebSocket, session_id: str, user_id: str, db
             # handle binary message(audio)
             elif 'bytes' in data:
                 binary_data = data['bytes']
+                # Inspect the first 4 bytes to see if it's a webm file.
+                if binary_data[:4] == b'\x1aE\xdf\xa3':
+                    print(f"Received webm file on platform {platform}")
+                elif binary_data[:4] == b'RIFF':
+                    print(f"Received wav file on platform {platform}")
+                else:
+                    print(f"Received unknown file with header {binary_data[:4]} on platform {platform}")
                 # 0. Handle interim speech.
                 if speech_recognition_interim:
                     interim_transcript: str = (
